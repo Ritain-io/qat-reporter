@@ -1,0 +1,2 @@
+host: localhost
+port: <%= ENV['REQUIREMENT_COVERAGE_PORT'] || 8090%>
