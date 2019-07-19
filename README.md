@@ -63,4 +63,4 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/readin
 
 ## Code of Conduct
 
-Everyone interacting in the Qat::Reporter project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/readiness-it/qat-reporter/blob/master/CODE_OF_CONDUCT.md).
+Everyone interacting in the QAT::Reporter project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/readiness-it/qat-reporter/blob/master/CODE_OF_CONDUCT.md).
