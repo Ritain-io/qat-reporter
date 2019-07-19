@@ -22,7 +22,7 @@ Gem::Specification.new do |gem|
 
   gem.required_ruby_version = '~> 2.3'
 
-  gem.add_dependency 'qat', '~> 6.0'
+  gem.add_dependency 'qat-cucumber', '~> 6.0'
   gem.add_dependency 'qat-logger', '~> 6.0'
   gem.add_dependency 'qat-core', '~> 6.0'
 
