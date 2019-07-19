@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.org/readiness-it/qat-reporter.svg?branch=master)](https://travis-ci.org/readiness-it/qat-reporter)
 # QAT::Reporter
 
-- Welcome to the QAT reporter gem!
+- Welcome to the QAT Reporter gem!
 
 ## Table of contents 
 - This gem have functionalities such as:
