@@ -9,9 +9,9 @@ Gem::Specification.new do |gem|
   QAT Reporter is a collection of tool for generating test report information such as:
     - Requirement Coverage
   DESC
-  #Change
+
   gem.email    = 'qatoolkit@readinessit.com'
-  #Change
+
   gem.homepage = 'https://github.com/readiness-it/qat-reporter'
 
   gem.authors = ['QAT']
@@ -26,5 +26,5 @@ Gem::Specification.new do |gem|
   gem.add_dependency 'qat-logger', '~> 6.0'
   gem.add_dependency 'qat-core', '~> 6.0'
 
-  gem.add_development_dependency 'qat-devel', '>= 6.0'
+  gem.add_development_dependency 'qat-devel', '~> 6.0'
 end
