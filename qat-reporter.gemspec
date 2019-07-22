@@ -3,7 +3,7 @@
 
 Gem::Specification.new do |gem|
   gem.name        = 'qat-reporter'
-  gem.version     = '6.0.0'
+  gem.version     = '6.0.1'
   gem.summary     = %q{Utility for Test Reports.}
   gem.description = <<-DESC
   QAT Reporter is a collection of tool for generating test report information such as:
@@ -12,8 +12,11 @@ Gem::Specification.new do |gem|
 
   gem.email    = 'qatoolkit@readinessit.com'
 
-  gem.homepage = 'https://github.com/readiness-it/qat-reporter'
+  gem.homepage = 'https://www.readinessit.com'
 
+  gem.metadata    = {
+      'source_code_uri'   => 'https://github.com/readiness-it/qat-reporter'
+  }
   gem.authors = ['QAT']
   gem.license = 'GPL-3.0'
 
