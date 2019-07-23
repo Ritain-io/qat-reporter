@@ -26,7 +26,12 @@ module QAT
       # @return [Time/Nil] returns time or gives warning message
       def self.stop(measure_key, time = Time.now)
         if QAT::Core.instance.instance_variable_get(:@storage).key?("#{measure_key}_start".to_sym)
-          QAT.store "#{measure_key}_end".to_sym, time
+          if QAT::Core.instance.instance_variable_get(:@storage).key?("#{measure_key}_end".to_sym)
+            log.warn "Time measurement already exists..."
+            nil
+          else
+            QAT.store "#{measure_key}_end".to_sym, time
+          end
         else
           log.warn "No Start time was found for '#{measure_description(measure_key) rescue measure_key}'!"
           nil
