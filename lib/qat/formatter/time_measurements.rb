@@ -127,9 +127,7 @@ module QAT
 
       # Writes results to a JSON file
       def publish_result
-        content = {
-          results: @test_results
-        }
+        content =  @test_results
         @io.puts(JSON.pretty_generate(content))
       end
     end
