@@ -155,3 +155,14 @@ Feature: User Story #21 - Test's interactions time report
     When I run `rake test:run`
     Then the exit status should be 0
     And the output should match /\[WARN \] QAT::Reporter::Times: No Start time was found for 'This is a test measure'!/
+
+
+  @bug#30
+  Scenario: Take a time measurement using start and 2 stop methods
+    When the user starts a time measurement with configuration
+    And executes a code snippet that lasts "2" seconds
+    And the user stops a time measurement
+    And executes a code snippet that lasts "4" seconds
+    And the user stops a time measurement
+    Then a time interval of "2" seconds was measured
+    And the execution time is formatted as "00m 02s"
