@@ -18,8 +18,8 @@ module QAT
             table_data = data.map do |_, measure|
               {
                 'Interaction' => measure[:name],
-                'Start'       => measure[:start].strftime('%Y-%m-%d %l:%M:%S%z'),
-                'End'         => measure[:end].strftime('%Y-%m-%d %l:%M:%S%z'),
+                'Start'       => measure[:start].strftime('%Y-%m-%d %H:%M:%S %z'),
+                'End'         => measure[:end].strftime('%Y-%m-%d %H:%M:%S %z'),
                 'Duration'    => human_formatted_time(measure[:duration]),
               }
             end

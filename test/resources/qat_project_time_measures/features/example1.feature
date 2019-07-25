@@ -17,6 +17,6 @@ Feature: Time measure
     And the execution time is formatted as "00m 02s"
 
   @no_start_time
-  Scenario: Take a time measurement
+  Scenario: Take a time measurement 2
     And executes a code snippet that lasts "2" seconds
     And the user stops the time measurement
