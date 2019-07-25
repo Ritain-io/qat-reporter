@@ -3,6 +3,6 @@ module QAT
   # Namespace for QAT Reporter
   module Reporter
     # Represents QAT Reporter's version
-    VERSION = '6.0.2'
+    VERSION = '6.1.0'
   end
 end
