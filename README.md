@@ -42,13 +42,34 @@ With the cucumber options:
 This will create a file ```requirement_coverage.json``` in the ```public/``` folder.
 
 ## Time measurements:
-In order to take time measurements it is necessary to run the following task:
+In order to take time measurements it is necessary to run the following task for generate ```times.json``` that contains all the tests with required measurements:
 ```ruby
 rake test:run 
 ```
+
 With the cucumber options:
 ```bash
--t @label
+--format QAT::Formatter::TimeMeasurements --out public/times.json
+```
+The ffollowing output should be like this:
+```ruby
+{
+    feature:      current_feature,
+    scenario:     current_scenario,
+    status:       test_status,
+    test_id:      test_id,
+    test_run_id:  test_run_id,
+    measurements: [
+                    id:   @measurement_id,
+                    name: @measurement_name,
+                    time: {
+                      duration:       duration,
+                      human_duration: human_duration
+                    }
+
+                  ]
+
+}
 ```
 
 ## Development
