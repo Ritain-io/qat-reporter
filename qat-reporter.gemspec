@@ -29,5 +29,5 @@ Gem::Specification.new do |gem|
   gem.add_dependency 'qat-logger', '~> 6.0'
   gem.add_dependency 'qat-core', '~> 6.0'
 
-  gem.add_development_dependency 'qat-devel', '~> 6.0'
+  gem.add_development_dependency 'qat-devel', '~> 6.0', '>= 6.0.1'
 end

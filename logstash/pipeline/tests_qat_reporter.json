@@ -7,7 +7,9 @@
       "analysis": {
         "analyzer": {
           "tags_analyser": {
-            "filter": ["lowercase"],
+            "filter": [
+              "lowercase"
+            ],
             "type": "custom",
             "tokenizer": "whitespace"
           }
@@ -16,46 +18,99 @@
     }
   },
   "mappings": {
-      "dynamic": true,
-      "dynamic_templates": [
-        {
-          "base": {
-            "mapping": {
-              "type": "keyword"
-            },
-            "match_mapping_type": "*",
-            "match": "*"
-          }
-        }
-      ],
-      "properties": {
-        "protocol": {
-          "type": "long"
-        },
-        "@timestamp": {
-          "format": "strict_date_optional_time||epoch_millis",
-          "type": "date"
-        },
-        "source_host": {
-          "type": "ip"
-        },
-        "BUILD_NUMBER": {
-          "type": "long"
-        },
-        "level": {
-          "type": "long"
-        },
-        "line": {
-          "type": "long"
-        },
-        "outline_number": {
-          "type": "long"
-        },
-        "tags": {
-          "analyzer": "tags_analyser",
-          "type": "text"
+    "dynamic": true,
+    "dynamic_templates": [
+      {
+        "base": {
+          "mapping": {
+            "type": "keyword"
+          },
+          "match_mapping_type": "*",
+          "match": "*"
         }
       }
+    ],
+    "properties": {
+      "protocol": {
+        "type": "long"
+      },
+      "@timestamp": {
+        "format": "strict_date_optional_time||epoch_millis",
+        "type": "date"
+      },
+      "source_host": {
+        "type": "ip"
+      },
+      "BUILD_NUMBER": {
+        "type": "long"
+      },
+      "level": {
+        "type": "long"
+      },
+      "line": {
+        "type": "long"
+      },
+      "outline_number": {
+        "type": "long"
+      },
+      "tags": {
+        "analyzer": "tags_analyser",
+        "type": "text"
+      },
+      "os": {
+        "properties": {
+          "name": {
+            "type": "keyword",
+            "ignore_above": 1024
+          },
+          "version": {
+            "type": "keyword",
+            "ignore_above": 1024
+          }
+        }
+      },
+      "browser": {
+        "properties": {
+          "name": {
+            "type": "keyword",
+            "ignore_above": 1024
+          },
+          "os": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword",
+                "ignore_above": 256
+              }
+            }
+          },
+          "version": {
+            "type": "keyword",
+            "ignore_above": 1024
+          }
+        }
+      },
+      "device_id": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword",
+            "ignore_above": 256
+          }
+        }
+      },
+      "time": {
+        "properties": {
+          "human": {
+            "type": "keyword",
+            "ignore_above": 1024
+          },
+          "secs": {
+            "type": "float"
+          }
+        }
+      }
+    }
   },
   "aliases": {}
 }
