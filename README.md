@@ -42,34 +42,46 @@ With the cucumber options:
 This will create a file ```requirement_coverage.json``` in the ```public/``` folder.
 
 ## Time measurements:
-In order to take time measurements it is necessary to run the following task for generate ```times.json``` that contains all the tests with required measurements:
-```ruby
-rake test:run 
+In order to take time measurements first it is necessary to create the following folder structure:
+```
+project   
+└───config
+│   └───common
+│       └───qat
+|           └───reporter
+|                   | times.yml
 ```
 
-With the cucumber options:
+The file times.yml contains the time measurements tag and description:
 ```bash
---format QAT::Formatter::TimeMeasurements --out public/times.json
+test_measure: This is a test measure
 ```
-The ffollowing output should be like this:
+To start measuring an interaction:
 ```ruby
-{
-    feature:      current_feature,
-    scenario:     current_scenario,
-    status:       test_status,
-    test_id:      test_id,
-    test_run_id:  test_run_id,
-    measurements: [
-                    id:   @measurement_id,
-                    name: @measurement_name,
-                    time: {
-                      duration:       duration,
-                      human_duration: human_duration
-                    }
+QAT::Reporter::Times.start(:test_measure)
+```
 
-                  ]
+To stop measuring an interaction:
+```ruby
+QAT::Reporter::Times.stop(:test_measure)
+```
 
-}
+Or it can measure a block of code:
+```ruby
+QAT::Reporter::Times.measure(:test_measure) do
+    code
+    ...
+    ...
+  end
+```
+
+In the end of each test a time report is generated:
+
+```ruby
+Time Report:
+| Interaction             | Start                    | End                      | Duration |
+| ------------------------| ------------------------ | ------------------------ | -------- |
+| This is a test measure  | 2019-08-06  5:30:50+0100 | 2019-08-06  5:31:59+0100 | 01m 08s  |
 ```
 
 ## Development
