@@ -42,15 +42,91 @@ With the cucumber options:
 This will create a file ```requirement_coverage.json``` in the ```public/``` folder.
 
 ## Time measurements:
-In order to take time measurements it is necessary to run the following task:
-```ruby
-rake test:run 
+In order to take time measurements first it is necessary to create the following folder structure:
 ```
-With the cucumber options:
-```bash
--t @label
+project   
+└───config
+│   └───common
+│       └───qat
+|           └───reporter
+|                   | times.yml
 ```
 
+The file times.yml contains the time measurements tag and description:
+```bash
+test_measure: This is a test measure
+```
+To start measuring an interaction:
+```ruby
+QAT::Reporter::Times.start(:test_measure)
+```
+
+To stop measuring an interaction:
+```ruby
+QAT::Reporter::Times.stop(:test_measure)
+```
+
+Or it can measure a block of code:
+```ruby
+QAT::Reporter::Times.measure(:test_measure) do
+    code
+    ...
+    ...
+  end
+```
+
+In the end of each test a time report is generated:
+
+```ruby
+Time Report:
+| Interaction             | Start                    | End                      | Duration |
+| ------------------------| ------------------------ | ------------------------ | -------- |
+| This is a test measure  | 2019-08-06  5:30:50+0100 | 2019-08-06  5:31:59+0100 | 01m 08s  |
+```
+
+Also, it is possible to generate a Json file with the cucumber options:
+```bash
+--format QAT::Formatter::TimeMeasurements --out public/times.json
+```
+This will create a file ```times.json``` in the ```public/``` folder with the following strcture:
+```bash
+[
+      {
+        "feature": "Time measure",
+        "scenario": "Take a time measurement",
+        "status": "passed",
+        "test_id": "test_1",
+        "test_run_id": "test_1_123456789",
+        "measurements": [
+          {
+            "id": "test_measure",
+            "name": "This is a test measure",
+            "time": {
+              "duration": 1.234567890123456,
+              "human_duration": "00m 01s"
+            }
+          }
+        ]
+      },
+      {
+        "feature": "Time measure",
+        "scenario": "Take a time measurement 2",
+        "status": "passed",
+        "test_id": "test_2",
+        "test_run_id": "test_2_123456789",
+        "measurements": [
+          {
+            "id": "test_measure",
+            "name": "This is a test measure",
+            "time": {
+              "duration": 1.234567890123456,
+              "human_duration": "00m 01s"
+            }
+          }
+        ]
+      }
+    ]
+```
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
