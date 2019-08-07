@@ -84,6 +84,49 @@ Time Report:
 | This is a test measure  | 2019-08-06  5:30:50+0100 | 2019-08-06  5:31:59+0100 | 01m 08s  |
 ```
 
+Also, it is possible to generate a Json file with the cucumber options:
+```bash
+--format QAT::Formatter::TimeMeasurements --out public/times.json
+```
+This will create a file ```times.json``` in the ```public/``` folder with the following strcture:
+```bash
+[
+      {
+        "feature": "Time measure",
+        "scenario": "Take a time measurement",
+        "status": "passed",
+        "test_id": "test_1",
+        "test_run_id": "test_1_123456789",
+        "measurements": [
+          {
+            "id": "test_measure",
+            "name": "This is a test measure",
+            "time": {
+              "duration": 1.234567890123456,
+              "human_duration": "00m 01s"
+            }
+          }
+        ]
+      },
+      {
+        "feature": "Time measure",
+        "scenario": "Take a time measurement 2",
+        "status": "passed",
+        "test_id": "test_2",
+        "test_run_id": "test_2_123456789",
+        "measurements": [
+          {
+            "id": "test_measure",
+            "name": "This is a test measure",
+            "time": {
+              "duration": 1.234567890123456,
+              "human_duration": "00m 01s"
+            }
+          }
+        ]
+      }
+    ]
+```
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
