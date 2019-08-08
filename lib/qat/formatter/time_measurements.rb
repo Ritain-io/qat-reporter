@@ -13,29 +13,27 @@ module QAT
   #@since 0.1.0
   module Formatter
     # Namespace for Time Measurements formatter
-    #@since 1.0.0
+    #@since 6.2.0
     class TimeMeasurements
       include ::Cucumber::Formatter::Io
       include ::Cucumber::Formatter::Duration
-      include QAT::Formatter::Loggable
-      include QAT::Logger
 
       #@api private
       def initialize(runtime, path_or_io, options)
-        @io           = ensure_io(path_or_io)
-        @options      = options
-        @test_results = []
-
-        # ensure_outputter 'TimeMeasurements' unless options[:dry_run]
+        @io = ensure_io(path_or_io)
+        @options = options
+        @feature_content = []
       end
 
       #@api private
-      def before_feature(*_)
+      def before_feature(feature)
         @feature_requirement_ids = []
-        @test_requirement_ids    = []
-        @in_test_cases           = false
-        @row_counter             = 0
-        @flag_tag                = nil
+        @test_requirement_ids = []
+        @in_test_cases = false
+        @row_counter = 0
+        @flag_tag = nil
+        @current_feature = feature
+        @test_results = []
       end
 
       #@api private
@@ -56,7 +54,6 @@ module QAT
 
       #@api private
       def before_test_case(test_case)
-        @current_feature  = test_case.source[0]
         @current_scenario = test_case.source[1]
         # unless @current_scenario.is_a?(::Cucumber::Core::Ast::ScenarioOutline)
         #   @test_id              = nil
@@ -74,10 +71,10 @@ module QAT
                         "not_runned"
                       end
 
-        duration       = ::Cucumber::Formatter::DurationExtractor.new(status).result_duration
+        duration = ::Cucumber::Formatter::DurationExtractor.new(status).result_duration
         human_duration = format_duration(duration)
 
-        test_id     = QAT[:current_test_id]
+        test_id = QAT[:current_test_id]
         test_run_id = QAT[:current_test_run_id]
         begin
           measurements = QAT::Reporter::Times.generate_time_report QAT[:current_test_id]
@@ -87,29 +84,32 @@ module QAT
 
         unless measurements.nil?
           measurements.each do |id, measure|
-            @measurement_id   = id
+            @measurement_id = id
             @measurement_name = measure[:name]
           end
 
           unless @measurement_id.nil?
             @test_results <<
-              {
-                feature:      @current_feature,
-                scenario:     @current_scenario,
-                status:       test_status,
-                test_id:      test_id,
-                test_run_id:  test_run_id,
-                measurements: [
-                                id:   @measurement_id,
-                                name: @measurement_name,
-                                time: {
-                                  duration:       duration,
-                                  human_duration: human_duration
-                                }
+                {
+                    name: @current_scenario,
+                    status: test_status,
+                    test_id: test_id,
+                    measurements: [
+                        id: @measurement_id,
+                        test_run_id: test_run_id,
+                        name: @measurement_name,
+                        time: {
+                            duration: duration,
+                            human_duration: human_duration
+                        }
+                    ]
+                }
 
-                              ]
-
-              }
+            content = [
+                feature_name: @current_feature,
+                scenarios: @test_results
+            ]
+            @feature_content << content
           end
         end
 
@@ -121,7 +121,6 @@ module QAT
       def after_features(*_)
         publish_result
       end
-
 
       private
 
