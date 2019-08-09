@@ -18,17 +18,14 @@ module QAT
       include ::Cucumber::Formatter::Io
       include ::Cucumber::Formatter::Duration
 
-      #@api private
       def initialize(runtime, path_or_io, options)
         @io = ensure_io(path_or_io)
         @options = options
-        @feature_content = []
-        @test_results = []
+        @json_content = []
         @scenario_tags = []
         @test_runs = []
       end
 
-      #2nd running
       #@api private
       def before_feature(feature)
         @feature_requirement_ids = []
@@ -39,21 +36,28 @@ module QAT
         @same_feature = @current_feature.equal?(feature)
         @current_feature = feature
         @feature_tags = []
+        @current_feature_timestamp = Time.now.strftime("%FT%T")
+
+        @current_feature_info = {
+            feature: @current_feature,
+            tags: [],
+            timestamp: @current_feature_timestamp,
+            scenarios: []
+        }
+
       end
 
-      #4th running
       #@api private
       def feature_name(*_)
         @in_test_cases = true
       end
 
-      #3rd running
       #@api private
       def tag_name(tag_name)
         @test_id = tag_name.to_s
         requirement_id = tag_name.to_s.split('#')[1] if tag_name.match(/@user_story#(\d+)/)
-        @feature_tags << tag_name unless @in_test_cases
-        @scenario_tags << tag_name if @in_test_cases
+        @current_feature_info[:tags] << tag_name unless @in_test_cases
+        @current_scenario_info[:tags] << tag_name if @in_test_cases
         if @in_test_cases
           @test_requirement_ids << requirement_id
         else
@@ -61,7 +65,6 @@ module QAT
         end
       end
 
-      #1st running
       #@api private
       def before_test_case(test_case)
         @current_scenario = test_case.source[1]
@@ -69,6 +72,14 @@ module QAT
         #   @test_id              = nil
         #   @test_requirement_ids = []
         # end
+        @current_scenario_timestamp = Time.now.strftime("%FT%T")
+
+        @current_scenario_info = {
+            name: @current_scenario,
+            tags: [],
+            timestamp: @current_scenario_timestamp,
+            test_run: []
+        }
       end
 
       #@api private
@@ -89,45 +100,41 @@ module QAT
         begin
           measurements = QAT::Reporter::Times.generate_time_report QAT[:current_test_id]
         rescue
-          measurements = nil
+          measurements = []
         end
 
-        unless measurements.nil?
+        #unless measurements.nil?
           measurements.each do |id, measure|
             @measurement_id = id
             @measurement_name = measure[:name]
           end
 
-          unless @measurement_id.nil?
-            @test_results <<
+          #unless @measurement_id.nil?
+
+            if @current_scenario.is_a?(::Cucumber::Core::Ast::ScenarioOutline)
+            else
+            end
+
+            @current_scenario_info[:test_run] <<
                 {
-                    name: @current_scenario,
-                    tags: @scenario_tags,
-                    timestamp: nil, #TODO
-                    test_runs: [
-                        id: test_run_id,
-                        timestamp: nil, #TODO
-                        measurements: [
-                            {
-                                id: @measurement_id,
-                                name: @measurement_name,
-                                timestamp: nil, #TODO
-                                time: {
-                                    duration: duration,
-                                    human_duration: human_duration
-                                }
+                    id: test_run_id,
+                    timestamp: Time.now.strftime("%FT%T"), #TODO
+                    measurements: [
+                        {
+                            id: @measurement_id,
+                            name: @measurement_name,
+                            timestamp: Time.now.strftime("%FT%T"), #TODO
+                            time: {
+                                duration: duration,
+                                human_duration: human_duration
                             }
-                        ]
+                        }
                     ]
                 }
-          end
-
-
-          # @test_requirement_ids = [] unless @current_scenario.is_a?(::Cucumber::Core::Ast::ScenarioOutline)
-          # @flag_tag = @test_id if @flag_tag != @test_id
+          #end
 
           @scenario_tags = [] unless @current_scenario.is_a?(::Cucumber::Core::Ast::ScenarioOutline)
-        end
+        #end
       end
 
       #@api private
@@ -136,15 +143,13 @@ module QAT
       end
 
       #@api private
+      def after_feature_element(*_)
+        @current_feature_info[:scenarios] << @current_scenario_info
+      end
+
+      #@api private
       def after_feature(*_)
-        content = [
-            feature: @current_feature,
-            tags: @feature_tags,
-            timestamp: nil, #TODO
-            scenarios: @test_results
-        ]
-        @feature_content << content
-        @test_results = []
+        @json_content << @current_feature_info
       end
 
       #@api private
@@ -156,7 +161,7 @@ module QAT
 
       # Writes results to a JSON file
       def publish_result
-        @io.puts(JSON.pretty_generate(@feature_content))
+        @io.puts(JSON.pretty_generate(@json_content))
       end
     end
   end
