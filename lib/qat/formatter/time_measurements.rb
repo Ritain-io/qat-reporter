@@ -23,6 +23,8 @@ module QAT
         @io = ensure_io(path_or_io)
         @options = options
         @feature_content = []
+        @test_results = []
+        @scenario_tags = []
       end
 
       #@api private
@@ -32,8 +34,9 @@ module QAT
         @in_test_cases = false
         @row_counter = 0
         @flag_tag = nil
+        @same_feature = @current_feature.equal?(feature)
         @current_feature = feature
-        @test_results = []
+        @feature_tags = []
       end
 
       #@api private
@@ -43,13 +46,15 @@ module QAT
 
       #@api private
       def tag_name(tag_name)
-        # @test_id       = tag_name.to_s
-        # requirement_id = tag_name.to_s.split('#')[1] if tag_name.match(/@user_story#(\d+)/)
-        # if @in_test_cases
-        #   @test_requirement_ids << requirement_id
-        # else
-        #   @feature_requirement_ids << requirement_id
-        # end
+        @test_id       = tag_name.to_s
+        requirement_id = tag_name.to_s.split('#')[1] if tag_name.match(/@user_story#(\d+)/)
+        @feature_tags << tag_name unless @in_test_cases
+        @scenario_tags << tag_name if @in_test_cases
+        if @in_test_cases
+          @test_requirement_ids << requirement_id
+        else
+          @feature_requirement_ids << requirement_id
+        end
       end
 
       #@api private
@@ -92,6 +97,7 @@ module QAT
             @test_results <<
                 {
                     name: @current_scenario,
+                    tags: @scenario_tags,
                     status: test_status,
                     test_id: test_id,
                     measurements: [
@@ -104,17 +110,23 @@ module QAT
                         }
                     ]
                 }
-
-            content = [
-                feature_name: @current_feature,
-                scenarios: @test_results
-            ]
-            @feature_content << content
           end
         end
 
         @test_requirement_ids = [] unless @current_scenario.is_a?(::Cucumber::Core::Ast::ScenarioOutline)
-        @flag_tag             = @test_id if @flag_tag != @test_id
+        @flag_tag = @test_id if @flag_tag != @test_id
+        @scenario_tags = []
+      end
+
+      #@api private
+      def after_feature(*_)
+        content = [
+            feature: @current_feature,
+            tags: @feature_tags,
+            scenarios: @test_results
+        ]
+        @feature_content << content
+        @test_results = []
       end
 
       #@api private
