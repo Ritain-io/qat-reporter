@@ -25,8 +25,10 @@ module QAT
         @feature_content = []
         @test_results = []
         @scenario_tags = []
+        @test_runs = []
       end
 
+      #2nd running
       #@api private
       def before_feature(feature)
         @feature_requirement_ids = []
@@ -39,14 +41,16 @@ module QAT
         @feature_tags = []
       end
 
+      #4th running
       #@api private
       def feature_name(*_)
         @in_test_cases = true
       end
 
+      #3rd running
       #@api private
       def tag_name(tag_name)
-        @test_id       = tag_name.to_s
+        @test_id = tag_name.to_s
         requirement_id = tag_name.to_s.split('#')[1] if tag_name.match(/@user_story#(\d+)/)
         @feature_tags << tag_name unless @in_test_cases
         @scenario_tags << tag_name if @in_test_cases
@@ -57,6 +61,7 @@ module QAT
         end
       end
 
+      #1st running
       #@api private
       def before_test_case(test_case)
         @current_scenario = test_case.source[1]
@@ -68,18 +73,18 @@ module QAT
 
       #@api private
       def after_test_case(_, status)
-        test_status = if status.is_a? ::Cucumber::Core::Test::Result::Passed
-                        "passed"
-                      elsif status.is_a? ::Cucumber::Core::Test::Result::Failed
-                        "failed"
-                      else
-                        "not_runned"
-                      end
+        # test_status = if status.is_a? ::Cucumber::Core::Test::Result::Passed
+        #                 "passed"
+        #               elsif status.is_a? ::Cucumber::Core::Test::Result::Failed
+        #                 "failed"
+        #               else
+        #                 "not_runned"
+        #               end
 
         duration = ::Cucumber::Formatter::DurationExtractor.new(status).result_duration
         human_duration = format_duration(duration)
 
-        test_id = QAT[:current_test_id]
+        #test_id = QAT[:current_test_id]
         test_run_id = QAT[:current_test_run_id]
         begin
           measurements = QAT::Reporter::Times.generate_time_report QAT[:current_test_id]
@@ -98,23 +103,35 @@ module QAT
                 {
                     name: @current_scenario,
                     tags: @scenario_tags,
-                    status: test_status,
-                    test_id: test_id,
-                    measurements: [
-                        id: @measurement_id,
-                        test_run_id: test_run_id,
-                        name: @measurement_name,
-                        time: {
-                            duration: duration,
-                            human_duration: human_duration
-                        }
+                    timestamp: nil, #TODO
+                    test_runs: [
+                        id: test_run_id,
+                        timestamp: nil, #TODO
+                        measurements: [
+                            {
+                                id: @measurement_id,
+                                name: @measurement_name,
+                                timestamp: nil, #TODO
+                                time: {
+                                    duration: duration,
+                                    human_duration: human_duration
+                                }
+                            }
+                        ]
                     ]
                 }
           end
-        end
 
-        @test_requirement_ids = [] unless @current_scenario.is_a?(::Cucumber::Core::Ast::ScenarioOutline)
-        @flag_tag = @test_id if @flag_tag != @test_id
+
+          # @test_requirement_ids = [] unless @current_scenario.is_a?(::Cucumber::Core::Ast::ScenarioOutline)
+          # @flag_tag = @test_id if @flag_tag != @test_id
+
+          @scenario_tags = [] unless @current_scenario.is_a?(::Cucumber::Core::Ast::ScenarioOutline)
+        end
+      end
+
+      #@api private
+      def after_outline_table(*_)
         @scenario_tags = []
       end
 
@@ -123,6 +140,7 @@ module QAT
         content = [
             feature: @current_feature,
             tags: @feature_tags,
+            timestamp: nil, #TODO
             scenarios: @test_results
         ]
         @feature_content << content
