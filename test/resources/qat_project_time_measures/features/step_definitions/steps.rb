@@ -33,3 +33,12 @@ And(/^the execution time is formatted as "([^"]*)"$/) do |formatted|
   test_measure = QAT::Reporter::Times.get_execution_time(@label)
   assert_equal(formatted, test_measure)
 end
+
+Then(/^"(good|bad)" result is achieved/) do |result|
+  case result
+  when 'good'
+    assert true
+  else
+    assert false
+  end
+end

@@ -28,7 +28,7 @@ module QAT
       def before_feature(feature)
         @in_test_cases = false
         @current_feature = feature
-        @current_feature_timestamp = Time.now.strftime("%FT%T")
+        @current_feature_timestamp = Time.now.strftime("%FT%T%z")
         @current_feature_info = {
             feature: @current_feature,
             tags: [],
@@ -66,7 +66,7 @@ module QAT
       #@api private
       def before_test_case(test_case)
         @current_scenario = test_case.source[1]
-        @current_scenario_timestamp = Time.now.strftime("%FT%T")
+        @current_scenario_timestamp = Time.now.strftime("%FT%T%z")
 
         if @current_scenario.is_a?(::Cucumber::Core::Ast::ScenarioOutline)
           if @outline_end #Not to set the flags/test_un to nil after a outline execution
@@ -100,18 +100,9 @@ module QAT
 
       #@api private
       def after_test_case(_, status)
-        # test_status = if status.is_a? ::Cucumber::Core::Test::Result::Passed
-        #                 "passed"
-        #               elsif status.is_a? ::Cucumber::Core::Test::Result::Failed
-        #                 "failed"
-        #               else
-        #                 "not_runned"
-        #               end
-
         duration = ::Cucumber::Formatter::DurationExtractor.new(status).result_duration
         human_duration = format_duration(duration)
 
-        #test_id = QAT[:current_test_id]
         test_run_id = QAT[:current_test_run_id]
         begin
           measurements = QAT::Reporter::Times.generate_time_report QAT[:current_test_id]
@@ -129,15 +120,15 @@ module QAT
 
         test_run_info = {
             id: test_run_id,
-            timestamp: Time.now.strftime("%FT%T"), #TODO
+            timestamp: Time.now.strftime("%FT%T%z"),
             measurements: [
                 {
                     id: @measurement_id,
                     name: @measurement_name,
-                    timestamp: Time.now.strftime("%FT%T"), #TODO
+                    timestamp: Time.now.strftime("%FT%T%z"),
                     time: {
-                        duration: duration,
-                        human_duration: human_duration
+                        secs: duration,
+                        human: human_duration
                     }
                 }
             ]
