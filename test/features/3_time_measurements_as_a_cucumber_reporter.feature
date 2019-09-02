@@ -94,7 +94,7 @@ Feature: Feature #3 Time Measurements Report
           },
           {
             "name": "Take a time measurement 1",
-            "tags": [
+            "tags": \[
               "@no_start_time"
             \],
             "timestamp": "\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}[\+|\-]\d{4}",

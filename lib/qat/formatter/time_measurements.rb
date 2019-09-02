@@ -3,7 +3,6 @@ require 'cucumber/formatter/io'
 require 'cucumber/formatter/duration'
 require 'cucumber/formatter/duration_extractor'
 require 'json'
-require 'fileutils'
 require 'qat/logger'
 require 'qat/formatter/loggable'
 require_relative '../../qat/reporter/times'
@@ -146,18 +145,13 @@ module QAT
       #@api private
       def after_examples_array(*_)
         @current_feature_info[:scenarios] << @outline_scenario_info
-        #@outline_scenario_info[:tags] = []
         @in_test_cases = false
         @outline_end = true
       end
 
       #@api private
       def after_feature_element(*_)
-        if @current_scenario.is_a?(::Cucumber::Core::Ast::ScenarioOutline)
-          @current_feature_info[:scenarios] << @outline_scenario_info
-        else
-          @current_feature_info[:scenarios] << @current_scenario_info
-        end
+        @current_feature_info[:scenarios] << @current_scenario_info unless @current_scenario.is_a?(::Cucumber::Core::Ast::ScenarioOutline)
         @in_test_cases = true
       end
 
