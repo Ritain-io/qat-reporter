@@ -28,6 +28,7 @@ module QAT
         @in_test_cases = false
         @current_feature = feature
         @current_feature_timestamp = Time.now.strftime("%FT%T%z")
+        @outline_tags = []
         @current_feature_info = {
             feature: @current_feature,
             tags: [],
@@ -55,7 +56,7 @@ module QAT
 
         if @in_test_cases
           if @current_scenario.is_a?(::Cucumber::Core::Ast::ScenarioOutline)
-            @outline_scenario_info[:tags] << tag_name
+            @outline_tags << tag_name
           else
             @current_scenario_info[:tags] << tag_name
           end
@@ -67,17 +68,7 @@ module QAT
         @current_scenario = test_case.source[1]
         @current_scenario_timestamp = Time.now.strftime("%FT%T%z")
 
-        if @current_scenario.is_a?(::Cucumber::Core::Ast::ScenarioOutline)
-          if @outline_end #Not to set the flags/test_un to nil after a outline execution
-            @outline_scenario_info = {
-                name: @current_scenario,
-                tags: [],
-                timestamp: @current_scenario_timestamp,
-                test_run: []
-            }
-            @outline_end = false
-          end
-        else
+        unless @current_scenario.is_a?(::Cucumber::Core::Ast::ScenarioOutline)
           @current_scenario_info = {
               name: @current_scenario,
               tags: [],
@@ -89,9 +80,10 @@ module QAT
 
       #@api private
       def before_outline_table(*_)
+        @outline = true
         @outline_scenario_info = {
             name: @current_scenario,
-            tags: @outline_scenario_info[:tags],
+            tags: [],
             timestamp: @current_scenario_timestamp,
             test_run: []
         }
@@ -108,50 +100,56 @@ module QAT
         rescue
           measurements = []
         end
+        @has_measurements = false
+        unless measurements == [] || measurements == {}
+          measurements.each do |id, measure|
+            @measurement_id = id
+            @measurement_name = measure[:name]
+          end
 
-        #unless measurements.nil?
-        measurements.each do |id, measure|
-          @measurement_id = id
-          @measurement_name = measure[:name]
-        end
-
-        #unless @measurement_id.nil?
-
-        test_run_info = {
-            id: test_run_id,
-            timestamp: Time.now.strftime("%FT%T%z"),
-            measurements: [
-                {
-                    id: @measurement_id,
-                    name: @measurement_name,
-                    timestamp: Time.now.strftime("%FT%T%z"),
-                    time: {
-                        secs: duration,
-                        human: human_duration
+          unless @measurement_id.nil?
+            @has_measurements = true
+            test_run_info = {
+                id: test_run_id,
+                timestamp: Time.now.strftime("%FT%T%z"),
+                measurements: [
+                    {
+                        id: @measurement_id,
+                        name: @measurement_name,
+                        timestamp: Time.now.strftime("%FT%T%z"),
+                        time: {
+                            secs: duration,
+                            human: human_duration
+                        }
                     }
-                }
-            ]
-        }
+                ]
+            }
 
-        if @current_scenario.is_a?(::Cucumber::Core::Ast::ScenarioOutline)
-          @outline_scenario_info[:test_run] << test_run_info
-        else
-          @current_scenario_info[:test_run] << test_run_info
+            if @current_scenario.is_a?(::Cucumber::Core::Ast::ScenarioOutline)
+              @outline_scenario_info[:test_run] << test_run_info
+            else
+              @current_scenario_info[:test_run] << test_run_info
+            end
+          end
         end
-        #end
-        #end
       end
 
       #@api private
       def after_examples_array(*_)
+        @outline_scenario_info[:tags] = @outline_tags
         @current_feature_info[:scenarios] << @outline_scenario_info
-        @in_test_cases = false
-        @outline_end = true
+        @outline = true
+        @outline_tags = []
       end
 
       #@api private
       def after_feature_element(*_)
-        @current_feature_info[:scenarios] << @current_scenario_info unless @current_scenario.is_a?(::Cucumber::Core::Ast::ScenarioOutline)
+        #After outline run, here cucumber changes for non outline, flag needed for outlines scenarios
+        if @outline == true
+          @outline = false
+        else
+          @current_feature_info[:scenarios] << @current_scenario_info
+        end
         @in_test_cases = true
       end
 
