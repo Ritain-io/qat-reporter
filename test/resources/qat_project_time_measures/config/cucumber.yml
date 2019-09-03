@@ -1,1 +1,11 @@
-vdefault: --format pretty
+#vdefault: --format pretty
+qat: &qat >
+  --format QAT::Formatter::Console
+  --format QAT::Formatter::ReqCoverage --out public/requirement_coverage.json
+  --format QAT::Formatter::TimeMeasurements --out public/times.json
+  --strict
+standard: &standard >
+  --format html --out public/index.html
+  --format junit --out features/reports
+flat: &flat --format pretty
+default: *qat

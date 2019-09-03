@@ -67,54 +67,6 @@ Feature: Feature #3 Time Measurements Report
                 \]
               }
             \]
-          },
-          {
-            "name": "Take a time measurement 1",
-            "tags": \[
-              "@no_start_time"
-            \],
-            "timestamp": "\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}[\+|\-]\d{4}",
-            "test_run": \[
-              {
-                "id": "test_\d+_\d+",
-                "timestamp": "\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}[\+|\-]\d{4}",
-                "measurements": \[
-                  {
-                    "id": "test_measure",
-                    "name": "This is a test measure",
-                    "timestamp": "\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}[\+|\-]\d{4}",
-                    "time": {
-                      "secs": \d+.\d+,
-                      "human": "\d+m\d.\d{3}s"
-                    }
-                  }
-                \]
-              }
-            \]
-          },
-          {
-            "name": "Take a time measurement 2",
-            "tags": \[
-              "@no_start_time"
-            \],
-            "timestamp": "\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}[\+|\-]\d{4}",
-            "test_run": \[
-              {
-                "id": "test_\d+_\d+",
-                "timestamp": "\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}[\+|\-]\d{4}",
-                "measurements": \[
-                  {
-                    "id": "test_measure",
-                    "name": "This is a test measure",
-                    "timestamp": "\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}[\+|\-]\d{4}",
-                    "time": {
-                      "secs": \d+.\d+,
-                      "human": "\d+m\d.\d{3}s"
-                    }
-                  }
-                \]
-              }
-            \]
           }
         \]
       },

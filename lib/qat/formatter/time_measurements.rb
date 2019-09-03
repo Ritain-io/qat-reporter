@@ -94,6 +94,7 @@ module QAT
         duration = ::Cucumber::Formatter::DurationExtractor.new(status).result_duration
         human_duration = format_duration(duration)
 
+
         test_run_id = QAT[:current_test_run_id]
         begin
           measurements = QAT::Reporter::Times.generate_time_report QAT[:current_test_id]
@@ -101,6 +102,8 @@ module QAT
           measurements = []
         end
         @has_measurements = false
+
+
         unless measurements == [] || measurements == {}
           measurements.each do |id, measure|
             @measurement_id = id
@@ -155,6 +158,16 @@ module QAT
 
       #@api private
       def after_feature(*_)
+        @indexes = []
+        @scenarios = @current_feature_info[:scenarios]
+        @scenarios.each_with_index do |key, value|
+          if key[:test_run].empty?
+            @indexes << value
+          end
+        end
+        @indexes.reverse!.each do |v|
+          @current_feature_info[:scenarios].delete_at(v)
+        end
         @json_content << @current_feature_info
       end
 
