@@ -27,5 +27,5 @@ Feature: Time measure
   @no_start_time
   Scenario: Failed time measurement without start time
     When executes a code snippet that lasts "2" seconds
-    And the user stops a blocking time measurement
+    And the user stops a "blocking" time measurement
     Then an "QAT::Reporter::Times::NoStartTimeError" exception is raised

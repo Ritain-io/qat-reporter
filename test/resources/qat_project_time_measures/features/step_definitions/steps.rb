@@ -71,8 +71,8 @@ When(/^a code snippet that lasts "([^"]*)" seconds is measured$/) do |duration|
 end
 
 
+And(/^the user stops a "([^"]*)" time measurement$/) do |blocking|
 
-And(/^the user stops (?:a|the)( blocking)? time measurement$/) do |blocking|
   begin
     if blocking
       QAT::Reporter::Times.stop!(@label)
