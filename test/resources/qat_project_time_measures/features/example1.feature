@@ -16,14 +16,16 @@ Feature: Time measure
       | good   | good   |
 
   @no_start_time
-  Scenario: Take a time measurement 1
-    When the user starts a time measurement without configuration
+  Scenario: Failed time measurement without configuration
+    Given the user starts a time measurement without configuration
     And executes a code snippet that lasts "2" seconds
     And the user stops the time measurement
-    Then a time interval of "2" seconds was measured
-    And the execution time is formatted as "00m 02s"
+    When the time report is generated
+    Then an "QAT::Reporter::Times::NoLabelInConfig" exception is raised
+
 
   @no_start_time
-  Scenario: Take a time measurement 2
-    And executes a code snippet that lasts "2" seconds
-    And the user stops the time measurement
+  Scenario: Failed time measurement without start time
+    When executes a code snippet that lasts "2" seconds
+    And the user stops a blocking time measurement
+    Then an "QAT::Reporter::Times::NoStartTimeError" exception is raised
