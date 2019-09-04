@@ -88,44 +88,61 @@ Also, it is possible to generate a Json file with the cucumber options:
 ```bash
 --format QAT::Formatter::TimeMeasurements --out public/times.json
 ```
-This will create a file ```times.json``` in the ```public/``` folder with the following strcture:
+This will create a file ```times.json``` in the ```public/``` folder with the following structure:
 ```bash
 [
+  {
+    "feature": "Time measure",
+    "tags": [
+      "@feature",
+      "@feature_tag"
+    ],
+    "timestamp": "2019-09-04T16:30:53+0100",
+    "scenarios": [
       {
-        "feature": "Time measure",
-        "scenario": "Take a time measurement",
-        "status": "passed",
-        "test_id": "test_1",
-        "test_run_id": "test_1_123456789",
-        "measurements": [
+        "name": "Take a time measurement",
+        "tags": [
+          "@label",
+          "@test#1",
+          "@user_story#2"
+        ],
+        "timestamp": "2019-09-04T16:30:53+0100",
+        "test_run": [
           {
-            "id": "test_measure",
-            "name": "This is a test measure",
-            "time": {
-              "duration": 1.234567890123456,
-              "human_duration": "00m 01s"
-            }
-          }
-        ]
-      },
-      {
-        "feature": "Time measure",
-        "scenario": "Take a time measurement 2",
-        "status": "passed",
-        "test_id": "test_2",
-        "test_run_id": "test_2_123456789",
-        "measurements": [
+            "id": "test_1_1_1567611053",
+            "timestamp": "2019-09-04T16:30:55+0100",
+            "measurements": [
+              {
+                "id": "test_measure",
+                "name": "This is a test measure",
+                "timestamp": "2019-09-04T16:30:55+0100",
+                "time": {
+                  "secs": 2.0983553,
+                  "human": "0m2.098s"
+                }
+              }
+            ]
+          },
           {
-            "id": "test_measure",
-            "name": "This is a test measure",
-            "time": {
-              "duration": 1.234567890123456,
-              "human_duration": "00m 01s"
-            }
+            "id": "test_1_2_1567611055",
+            "timestamp": "2019-09-04T16:30:57+0100",
+            "measurements": [
+              {
+                "id": "test_measure",
+                "name": "This is a test measure",
+                "timestamp": "2019-09-04T16:30:57+0100",
+                "time": {
+                  "secs": 2.0371241,
+                  "human": "0m2.037s"
+                }
+              }
+            ]
           }
         ]
       }
     ]
+  }
+]
 ```
 ## Development
 

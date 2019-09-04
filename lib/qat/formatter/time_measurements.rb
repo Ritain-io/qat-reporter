@@ -101,8 +101,6 @@ module QAT
         rescue
           measurements = []
         end
-        @has_measurements = false
-
 
         unless measurements == [] || measurements == {}
           measurements.each do |id, measure|
@@ -111,7 +109,6 @@ module QAT
           end
 
           unless @measurement_id.nil?
-            @has_measurements = true
             test_run_info = {
                 id: test_run_id,
                 timestamp: Time.now.strftime("%FT%T%z"),
