@@ -168,7 +168,7 @@ module QAT
         @indexes.reverse!.each do |v|
           @current_feature_info[:scenarios].delete_at(v)
         end
-        @json_content << @current_feature_info
+        @json_content << @current_feature_info unless @scenarios.empty?
       end
 
       #@api private
