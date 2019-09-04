@@ -117,7 +117,7 @@ Feature: User Story #21 - Test's interactions time report
     Then the exit status should be 0
     And the output should not match /\|\sInteraction\s*\|\sStart\s*|\sEnd\s*\|\sDuration\|/
     And the output should not match /\|\sThis is a test measure\s*|\s*\d{4}-\d{2}-\d{2}\s\d{2}:\d{2}:\d{2}+\d{4}\s*\|\s*\d{4}-\d{2}-\d{2}\s\d{2}:\d{2}:\d{2}+\d{4}\s*\|\s\d{2}m\s\d{2}s\s*\|/
-    And the output should match /Caught exception: \\[QAT::Reporter::Times::NoLabelInConfig\\] No description was found in configuration file for key 'no_test_measure'!/
+    And the output should match /Caught exception: \[QAT::Reporter::Times::NoLabelInConfig\] No description was found in configuration file for key 'no_test_measure'!/
 
 
   @test#21

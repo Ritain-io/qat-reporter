@@ -15,7 +15,7 @@ Feature: Time measure
       | good   | good   |
       | good   | good   |
 
-  @no_start_time
+  @no_label
   Scenario: Failed time measurement without configuration
     Given the user starts a time measurement without configuration
     And executes a code snippet that lasts "2" seconds
