@@ -162,22 +162,24 @@ module QAT
 
         @scenarios.each_with_index do |key, value|
           test_run = key[:test_runs]
+          #Verifies if exist measures in a test_run
           test_run.each_with_index do |key, value|
             if key[:measurements].empty?
               @indexes << value
-              @indexes.reverse!.each do |v|
-                test_run.delete_at(v)
-              end
             end
           end
-
-          #Delete empty test runs:
-          # if key[:test_runs].empty?
-          #   @indexes_test_runs << value
-          #   @indexes_test_runs.reverse!.each do |v|
-          #     @current_feature_info[:scenarios].delete_at(v)
-          #   end
-          # end
+          #Deletes the empty measures
+          @indexes.reverse!.each do |v|
+            test_run.delete_at(v)
+          end
+          #Verifies if exist test_runs in a scenarios
+          if key[:test_runs].empty?
+            @indexes_test_runs << value
+          end
+        end
+        #Delete empty test runs:
+        @indexes_test_runs.reverse!.each do |v|
+          @current_feature_info[:scenarios].delete_at(v)
         end
 
         @json_content << @current_feature_info unless @scenarios.empty?
