@@ -118,7 +118,7 @@ This will create a file ```times.json``` in the ```public/``` folder with the fo
                 "timestamp": "2019-09-04T16:30:55+0100",
                 "time": {
                   "secs": 2.0983553,
-                  "human": "0m2.098s"
+                  "human": "0m 2s"
                 }
               }
             ]
@@ -133,7 +133,7 @@ This will create a file ```times.json``` in the ```public/``` folder with the fo
                 "timestamp": "2019-09-04T16:30:57+0100",
                 "time": {
                   "secs": 2.0371241,
-                  "human": "0m2.037s"
+                  "human": "0m 2s"
                 }
               }
             ]

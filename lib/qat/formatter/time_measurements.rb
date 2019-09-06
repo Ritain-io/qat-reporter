@@ -192,6 +192,11 @@ module QAT
 
       private
 
+      def format_duration(seconds)
+        m, s = seconds.divmod(60)
+        "#{m}m #{'%.f' % s}s"
+      end
+
       # Writes results to a JSON file
       def publish_result
         @io.puts(JSON.pretty_generate(@json_content))

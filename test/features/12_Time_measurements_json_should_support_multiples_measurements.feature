@@ -46,7 +46,7 @@ Feature: Feature #12 Time Measurements should support multiples measurements
                     "timestamp": "\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}[\+|\-]\d{4}",
                     "time": {
                       "secs": \d+.\d+,
-                      "human": "\d+m\d.\d{3}s"
+                      "human": "\d+m \d+s"
                     }
                   },
                   {
@@ -55,7 +55,7 @@ Feature: Feature #12 Time Measurements should support multiples measurements
                     "timestamp": "\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}[\+|\-]\d{4}",
                     "time": {
                       "secs": \d+.\d+,
-                      "human": "\d+m\d.\d{3}s"
+                      "human": "\d+m \d+s"
                     }
                   }
                 \]
@@ -70,7 +70,7 @@ Feature: Feature #12 Time Measurements should support multiples measurements
                     "timestamp": "\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}[\+|\-]\d{4}",
                     "time": {
                       "secs": \d+.\d+,
-                      "human": "\d+m\d.\d{3}s"
+                      "human": "\d+m \d+s"
                     }
                   },
                   {
@@ -79,7 +79,7 @@ Feature: Feature #12 Time Measurements should support multiples measurements
                     "timestamp": "\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}[\+|\-]\d{4}",
                     "time": {
                       "secs": \d+.\d+,
-                      "human": "\d+m\d.\d{3}s"
+                      "human": "\d+m \d+s"
                     }
                   }
                 \]
