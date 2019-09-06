@@ -35,7 +35,7 @@ Feature: Feature #3 Time Measurements Report
               "@ola"
             \],
             "timestamp": "\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}[\+|\-]\d{4}",
-            "test_run": \[
+            "test_runs": \[
               {
                 "id": "test_\d+_\d+_\d+",
                 "timestamp": "\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}[\+|\-]\d{4}",
@@ -46,7 +46,7 @@ Feature: Feature #3 Time Measurements Report
                     "timestamp": "\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}[\+|\-]\d{4}",
                     "time": {
                       "secs": \d+.\d+,
-                      "human": "\d+m\d.\d{3}s"
+                      "human": "\d+m \d+s"
                     }
                   }
                 \]
@@ -61,7 +61,7 @@ Feature: Feature #3 Time Measurements Report
                     "timestamp": "\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}[\+|\-]\d{4}",
                     "time": {
                       "secs": \d+.\d+,
-                      "human": "\d+m\d.\d{3}s"
+                      "human": "\d+m \d+s"
                     }
                   }
                 \]
@@ -86,7 +86,7 @@ Feature: Feature #3 Time Measurements Report
               "@outline"
             \],
             "timestamp": "\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}[\+|\-]\d{4}",
-            "test_run": \[
+            "test_runs": \[
               {
                 "id": "test_\d+_\d+_\d+",
                 "timestamp": "\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}[\+|\-]\d{4}",
@@ -97,7 +97,7 @@ Feature: Feature #3 Time Measurements Report
                     "timestamp": "\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}[\+|\-]\d{4}",
                     "time": {
                       "secs": \d+.\d+,
-                      "human": "\d+m\d.\d{3}s"
+                      "human": "\d+m \d+s"
                     }
                   }
                 \]
@@ -112,7 +112,7 @@ Feature: Feature #3 Time Measurements Report
                     "timestamp": "\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}[\+|\-]\d{4}",
                     "time": {
                       "secs": \d+.\d+,
-                      "human": "\d+m\d.\d{3}s"
+                      "human": "\d+m \d+s"
                     }
                   }
                 \]
@@ -128,7 +128,7 @@ Feature: Feature #3 Time Measurements Report
               "@outline"
             \],
             "timestamp": "\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}[\+|\-]\d{4}",
-            "test_run": \[
+            "test_runs": \[
               {
                 "id": "test_\d+_\d+_\d+",
                 "timestamp": "\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}[\+|\-]\d{4}",
@@ -139,7 +139,7 @@ Feature: Feature #3 Time Measurements Report
                     "timestamp": "\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}[\+|\-]\d{4}",
                     "time": {
                       "secs": \d+.\d+,
-                      "human": "\d+m\d.\d{3}s"
+                      "human": "\d+m \d+s"
                     }
                   }
                 \]
@@ -154,7 +154,7 @@ Feature: Feature #3 Time Measurements Report
                     "timestamp": "\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}[\+|\-]\d{4}",
                     "time": {
                       "secs": \d+.\d+,
-                      "human": "\d+m\d.\d{3}s"
+                      "human": "\d+m \d+s"
                     }
                   }
                 \]
