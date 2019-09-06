@@ -107,7 +107,7 @@ This will create a file ```times.json``` in the ```public/``` folder with the fo
           "@user_story#2"
         ],
         "timestamp": "2019-09-04T16:30:53+0100",
-        "test_run": [
+        "test_runs": [
           {
             "id": "test_1_1_1567611053",
             "timestamp": "2019-09-04T16:30:55+0100",
