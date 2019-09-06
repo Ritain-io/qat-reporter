@@ -40,7 +40,7 @@ module QAT
             name: [],
             tags: [],
             timestamp: [],
-            test_run: []
+            test_runs: []
         }
       end
 
@@ -73,7 +73,7 @@ module QAT
               name: @current_scenario,
               tags: [],
               timestamp: @current_scenario_timestamp,
-              test_run: []
+              test_runs: []
           }
         end
       end
@@ -85,7 +85,7 @@ module QAT
             name: @current_scenario,
             tags: [],
             timestamp: @current_scenario_timestamp,
-            test_run: []
+            test_runs: []
         }
       end
 
@@ -102,35 +102,36 @@ module QAT
           measurements = []
         end
 
+        test_run_info = {
+            id: test_run_id,
+            timestamp: Time.now.strftime("%FT%T%z"),
+            measurements: []
+        }
+
         unless measurements == [] || measurements == {}
           measurements.each do |id, measure|
             @measurement_id = id
             @measurement_name = measure[:name]
-          end
 
-          unless @measurement_id.nil?
-            test_run_info = {
-                id: test_run_id,
-                timestamp: Time.now.strftime("%FT%T%z"),
-                measurements: [
-                    {
-                        id: @measurement_id,
-                        name: @measurement_name,
-                        timestamp: Time.now.strftime("%FT%T%z"),
-                        time: {
-                            secs: duration,
-                            human: human_duration
-                        }
-                    }
-                ]
-            }
+            unless @measurement_id.nil?
+              measurements = {
+                  id: @measurement_id,
+                  name: @measurement_name,
+                  timestamp: Time.now.strftime("%FT%T%z"),
+                  time: {
+                      secs: duration,
+                      human: human_duration
+                  }
+              }
 
-            if @current_scenario.is_a?(::Cucumber::Core::Ast::ScenarioOutline)
-              @outline_scenario_info[:test_run] << test_run_info
-            else
-              @current_scenario_info[:test_run] << test_run_info
+              test_run_info[:measurements] << measurements
             end
           end
+        end
+        if @current_scenario.is_a?(::Cucumber::Core::Ast::ScenarioOutline)
+          @outline_scenario_info[:test_runs] << test_run_info
+        else
+          @current_scenario_info[:test_runs] << test_run_info
         end
       end
 
@@ -156,15 +157,29 @@ module QAT
       #@api private
       def after_feature(*_)
         @indexes = []
+        @indexes_test_runs = []
         @scenarios = @current_feature_info[:scenarios]
+
         @scenarios.each_with_index do |key, value|
-          if key[:test_run].empty?
-            @indexes << value
+          test_run = key[:test_runs]
+          test_run.each_with_index do |key, value|
+            if key[:measurements].empty?
+              @indexes << value
+              @indexes.reverse!.each do |v|
+                test_run.delete_at(v)
+              end
+            end
           end
+
+          #Delete empty test runs:
+          # if key[:test_runs].empty?
+          #   @indexes_test_runs << value
+          #   @indexes_test_runs.reverse!.each do |v|
+          #     @current_feature_info[:scenarios].delete_at(v)
+          #   end
+          # end
         end
-        @indexes.reverse!.each do |v|
-          @current_feature_info[:scenarios].delete_at(v)
-        end
+
         @json_content << @current_feature_info unless @scenarios.empty?
       end
 
