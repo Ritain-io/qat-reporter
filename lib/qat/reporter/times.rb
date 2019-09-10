@@ -18,7 +18,7 @@ module QAT
       # @return [Time]
       def self.start(loading_name, time = Time.now)
         if QAT::Core.instance.instance_variable_get(:@storage).key?("#{loading_name}_start".to_sym)
-          log.warn "Time measurement '#{measure_description(measure_key) rescue measure_key}' already exists..."
+          log.warn "Time measurement '#{measure_description(loading_name) rescue loading_name}' already exists..."
           nil
         else
           QAT.store "#{loading_name}_start".to_sym, time
