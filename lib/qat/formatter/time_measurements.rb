@@ -96,11 +96,8 @@ module QAT
 
 
         test_run_id = QAT[:current_test_run_id]
-        begin
-          measurements = QAT::Reporter::Times.generate_time_report QAT[:current_test_id]
-        rescue
-          measurements = []
-        end
+
+        measurements = QAT::Reporter::Times.get_measures rescue []
 
         test_run_info = {
             id: test_run_id,
