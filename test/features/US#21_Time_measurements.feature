@@ -166,3 +166,15 @@ Feature: User Story #21 - Test's interactions time report
     And the user stops a time measurement
     Then a time interval of "2" seconds was measured
     And the execution time is formatted as "00m 02s"
+
+
+  @bug#31
+  Scenario: Take a time measurement using 2 start and 2 stop methods with the same label name
+    When the user starts a time measurement with configuration
+    And executes a code snippet that lasts "2" seconds
+    And the user stops the time measurement
+    When the user starts a time measurement with configuration
+    And executes a code snippet that lasts "4" seconds
+    And the user stops the time measurement
+    Then a time interval of "2" seconds was measured
+    And the execution time is formatted as "00m 02s"
