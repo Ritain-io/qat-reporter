@@ -17,7 +17,12 @@ module QAT
       # @param time [Time] start time (default: Time.now)
       # @return [Time]
       def self.start(loading_name, time = Time.now)
-        QAT.store "#{loading_name}_start".to_sym, time
+        if QAT::Core.instance.instance_variable_get(:@storage).key?("#{loading_name}_start".to_sym)
+          log.warn "Time measurement already exists..."
+          nil
+        else
+          QAT.store "#{loading_name}_start".to_sym, time
+        end
       end
 
       # Stops a time measure
@@ -114,7 +119,7 @@ module QAT
       # @param name [String] measure name
       # @return [Float]
       def self.get_duration(name)
-        end_key      = "#{name}_end".to_sym
+        end_key = "#{name}_end".to_sym
         QAT[end_key] ||= Time.now
         QAT[end_key].to_f - QAT["#{name}_start".to_sym].to_f
       end
@@ -122,7 +127,7 @@ module QAT
       # Verifies if QAT Storage has times
       # @return [Boolean]
       def self.has_times?
-        QAT::Core.instance.instance_variable_get(:@storage).keys.any? { |key| key.match(/_start$/) }
+        QAT::Core.instance.instance_variable_get(:@storage).keys.any? {|key| key.match(/_start$/)}
       end
 
 
@@ -149,10 +154,10 @@ module QAT
           end_time = QAT["#{label}_end".to_sym] || Time.now
 
           list[label] = {
-            name:     measure_description(label),
-            start:    start_time,
-            end:      end_time,
-            duration: end_time.to_f - start_time.to_f
+              name: measure_description(label),
+              start: start_time,
+              end: end_time,
+              duration: end_time.to_f - start_time.to_f
           }
 
           list
