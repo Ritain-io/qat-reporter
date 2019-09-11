@@ -4,7 +4,7 @@ Feature: Feature #3 Time Measurements Report
   In order to see my test's interactions times,
   I want to have a test interactions' time report
 
-  @test#29
+  @test#28
   Scenario: Take a time measurement
     Given I use the fixture "qat_project_time_measures"
     And I set the environment variables to:

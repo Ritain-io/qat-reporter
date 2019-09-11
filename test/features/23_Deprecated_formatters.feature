@@ -4,6 +4,7 @@ Feature: Deprecate formatters
   In order to maintain my code without refactoring,
   I want the deprecated classes to still work as previously expected
 
+  @test#31
   Scenario: Run deprecated requirement coverage formatter with success
     Given I use the fixture "qat_project_requirement_ids"
     And I set the environment variables to:
@@ -58,6 +59,7 @@ Feature: Deprecate formatters
     }
     """
 
+  @test#32
   Scenario: Run deprecated json formatter with success
     Given I use the fixture "qat_project_embed_test_evidences"
     And I set the environment variables to:
@@ -73,7 +75,7 @@ Feature: Deprecate formatters
       "embeddings": [
     """
 
-  @time_measures
+  @test#33 @time_measures
   Scenario: Run deprecated json time measurements formatter with success
     Given I use the fixture "qat_project_time_measures"
     And I set the environment variables to:
@@ -254,6 +256,7 @@ Feature: Deprecate formatters
     ]
     """
 
+  @test#34
   Scenario: Requiring old AsciiTable has a deprecated Warning
     Given a file named "test.rb" with:
     """
