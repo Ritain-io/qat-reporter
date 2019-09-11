@@ -14,8 +14,7 @@ Feature: Feature #602: Requirement Coverage Report:
 
   @test#1
   Scenario: Run requirement coverage formatter with success
-    Given I copy the directory named "../../resources/qat_project_no_requirement_ids" to "project"
-    And I cd to "project"
+    Given I use the fixture "qat_project_no_requirement_ids"
     And I set the environment variables to:
       | variable        | value                                                                       |
       | CUCUMBER_FORMAT |                                                                             |
@@ -26,8 +25,7 @@ Feature: Feature #602: Requirement Coverage Report:
 
   @test#2
   Scenario: Run with requirement coverage formatter in project with untagged tests
-    Given I copy the directory named "../../resources/qat_project_no_requirement_ids" to "project"
-    And I cd to "project"
+    Given I use the fixture "qat_project_no_requirement_ids"
     And I set the environment variables to:
       | variable        | value                                                                       |
       | CUCUMBER_FORMAT |                                                                             |
@@ -82,8 +80,7 @@ Feature: Feature #602: Requirement Coverage Report:
 
   @test#3 @user_story#1328
   Scenario: Run requirement coverage formatter in project with tests passing
-    Given I copy the directory named "../../resources/qat_project_requirement_ids" to "project"
-    And I cd to "project"
+    Given I use the fixture "qat_project_requirement_ids"
     And I set the environment variables to:
       | variable        | value                                                                       |
       | CUCUMBER_FORMAT |                                                                             |
@@ -138,8 +135,7 @@ Feature: Feature #602: Requirement Coverage Report:
 
   @test#4 @user_story#1328
   Scenario: Run requirement coverage formatter in project with mixed test results
-    Given I copy the directory named "../../resources/qat_project_mixed_tags_mixed_results" to "project"
-    And I cd to "project"
+    Given I use the fixture "qat_project_mixed_tags_mixed_results"
     And I set the environment variables to:
       | variable        | value                                                                       |
       | CUCUMBER_FORMAT |                                                                             |
@@ -206,8 +202,7 @@ Feature: Feature #602: Requirement Coverage Report:
 
   @test#5 @user_story#1328
   Scenario: Run requirement coverage formatter in project with background pending
-    Given I copy the directory named "../../resources/qat_project_background_pending" to "project"
-    And I cd to "project"
+    Given I use the fixture "qat_project_background_pending"
     And I set the environment variables to:
       | variable        | value                                                                       |
       | CUCUMBER_FORMAT |                                                                             |
@@ -262,8 +257,7 @@ Feature: Feature #602: Requirement Coverage Report:
 
   @test#6 @user_story#1328
   Scenario: Run dummy QAT project with reqCoverage formatter - check if test results are published
-    Given I copy the directory named "../../resources/qat_project_mixed_tags_mixed_results" to "project"
-    And I cd to "project"
+    Given I use the fixture "qat_project_mixed_tags_mixed_results"
     And I set the environment variables to:
       | variable        | value                                                                       |
       | CUCUMBER_FORMAT |                                                                             |
@@ -282,8 +276,7 @@ Feature: Feature #602: Requirement Coverage Report:
 
   @bug#636 @test#7 @user_story#1328
   Scenario: Run requirement coverage formatter in project with multiple test tables
-    Given I copy the directory named "../../resources/qat_project_multiple_example_tables" to "project"
-    And I cd to "project"
+    Given I use the fixture "qat_project_multiple_example_tables"
     And I set the environment variables to:
       | variable        | value                                                                       |
       | CUCUMBER_FORMAT |                                                                             |
@@ -410,8 +403,7 @@ Feature: Feature #602: Requirement Coverage Report:
 
   @bug#1222 @test#8 @user_story#1328
   Scenario: Bug#1222 - Feature requirement id is lost if other tags exist after user story id tag.
-    Given I copy the directory named "../../resources/qat_project_bug_1222_feature" to "project"
-    And I cd to "project"
+    Given I use the fixture "qat_project_bug_1222_feature"
     And I set the environment variables to:
       | variable        | value                                                                       |
       | CUCUMBER_FORMAT |                                                                             |
@@ -466,8 +458,7 @@ Feature: Feature #602: Requirement Coverage Report:
 
   @bug#1222 @test#9 @user_story#1328
   Scenario: Bug#1222 - Feature requirement id is lost if other tags exist after user story id tag.
-    Given I copy the directory named "../../resources/qat_project_bug_1222_scenario" to "project"
-    And I cd to "project"
+    Given I use the fixture "qat_project_bug_1222_scenario"
     And I set the environment variables to:
       | variable        | value                                                                       |
       | CUCUMBER_FORMAT |                                                                             |

@@ -6,8 +6,7 @@ Feature: Feature #3 Time Measurements Report
 
   @test#29
   Scenario: Take a time measurement
-    Given I copy the directory named "../../resources/qat_project_time_measures" to "project"
-    And I cd to "project"
+    Given I use the fixture "qat_project_time_measures"
     And I set the environment variables to:
       | variable        | value                                                             |
       | CUCUMBER_FORMAT |                                                                   |
@@ -187,8 +186,7 @@ Feature: Feature #3 Time Measurements Report
 
     @test#29
     Scenario: Take a time measurement on project with no requirement ids
-      Given I copy the directory named "../../resources/qat_project_no_requirement_ids" to "project"
-      And I cd to "project"
+      Given I use the fixture "qat_project_no_requirement_ids"
       And I set the environment variables to:
         | variable        | value                                                             |
         | CUCUMBER_FORMAT |                                                                   |
