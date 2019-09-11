@@ -16,9 +16,9 @@ Feature: Feature #602: Requirement Coverage Report:
   Scenario: Run requirement coverage formatter with success
     Given I use the fixture "qat_project_no_requirement_ids"
     And I set the environment variables to:
-      | variable        | value                                                                       |
-      | CUCUMBER_FORMAT |                                                                             |
-      | CUCUMBER_OPTS   | --format QAT::Formatter::ReqCoverage --out public/requirement_coverage.json |
+      | variable        | value                                                                                 |
+      | CUCUMBER_FORMAT |                                                                                       |
+      | CUCUMBER_OPTS   | --format QAT::Reporter::Formatter::ReqCoverage --out public/requirement_coverage.json |
     When I run `rake test:run`
     Then the exit status should be 0
 
@@ -27,9 +27,9 @@ Feature: Feature #602: Requirement Coverage Report:
   Scenario: Run with requirement coverage formatter in project with untagged tests
     Given I use the fixture "qat_project_no_requirement_ids"
     And I set the environment variables to:
-      | variable        | value                                                                       |
-      | CUCUMBER_FORMAT |                                                                             |
-      | CUCUMBER_OPTS   | --format QAT::Formatter::ReqCoverage --out public/requirement_coverage.json |
+      | variable        | value                                                                                 |
+      | CUCUMBER_FORMAT |                                                                                       |
+      | CUCUMBER_OPTS   | --format QAT::Reporter::Formatter::ReqCoverage --out public/requirement_coverage.json |
     When I run `rake test:run`
     Then the exit status should be 0
     And a file named "public/requirement_coverage.json" should exist
@@ -82,9 +82,9 @@ Feature: Feature #602: Requirement Coverage Report:
   Scenario: Run requirement coverage formatter in project with tests passing
     Given I use the fixture "qat_project_requirement_ids"
     And I set the environment variables to:
-      | variable        | value                                                                       |
-      | CUCUMBER_FORMAT |                                                                             |
-      | CUCUMBER_OPTS   | --format QAT::Formatter::ReqCoverage --out public/requirement_coverage.json |
+      | variable        | value                                                                                 |
+      | CUCUMBER_FORMAT |                                                                                       |
+      | CUCUMBER_OPTS   | --format QAT::Reporter::Formatter::ReqCoverage --out public/requirement_coverage.json |
     When I run `rake test:run`
     Then the exit status should be 0
     And a file named "public/requirement_coverage.json" should exist
@@ -137,9 +137,9 @@ Feature: Feature #602: Requirement Coverage Report:
   Scenario: Run requirement coverage formatter in project with mixed test results
     Given I use the fixture "qat_project_mixed_tags_mixed_results"
     And I set the environment variables to:
-      | variable        | value                                                                       |
-      | CUCUMBER_FORMAT |                                                                             |
-      | CUCUMBER_OPTS   | --format QAT::Formatter::ReqCoverage --out public/requirement_coverage.json |
+      | variable        | value                                                                                 |
+      | CUCUMBER_FORMAT |                                                                                       |
+      | CUCUMBER_OPTS   | --format QAT::Reporter::Formatter::ReqCoverage --out public/requirement_coverage.json |
     When I run `rake test:run`
     Then the exit status should be 1
     And a file named "public/requirement_coverage.json" should exist
@@ -204,9 +204,9 @@ Feature: Feature #602: Requirement Coverage Report:
   Scenario: Run requirement coverage formatter in project with background pending
     Given I use the fixture "qat_project_background_pending"
     And I set the environment variables to:
-      | variable        | value                                                                       |
-      | CUCUMBER_FORMAT |                                                                             |
-      | CUCUMBER_OPTS   | --format QAT::Formatter::ReqCoverage --out public/requirement_coverage.json |
+      | variable        | value                                                                                 |
+      | CUCUMBER_FORMAT |                                                                                       |
+      | CUCUMBER_OPTS   | --format QAT::Reporter::Formatter::ReqCoverage --out public/requirement_coverage.json |
     When I run `rake test:run`
     Then the exit status should be 0
     And a file named "public/requirement_coverage.json" should exist
@@ -259,9 +259,9 @@ Feature: Feature #602: Requirement Coverage Report:
   Scenario: Run dummy QAT project with reqCoverage formatter - check if test results are published
     Given I use the fixture "qat_project_mixed_tags_mixed_results"
     And I set the environment variables to:
-      | variable        | value                                                                       |
-      | CUCUMBER_FORMAT |                                                                             |
-      | CUCUMBER_OPTS   | --format QAT::Formatter::ReqCoverage --out public/requirement_coverage.json |
+      | variable        | value                                                                                 |
+      | CUCUMBER_FORMAT |                                                                                       |
+      | CUCUMBER_OPTS   | --format QAT::Reporter::Formatter::ReqCoverage --out public/requirement_coverage.json |
     When I run `rake test:run`
     Then the exit status should be 1
     And the test results were published:
@@ -278,9 +278,9 @@ Feature: Feature #602: Requirement Coverage Report:
   Scenario: Run requirement coverage formatter in project with multiple test tables
     Given I use the fixture "qat_project_multiple_example_tables"
     And I set the environment variables to:
-      | variable        | value                                                                       |
-      | CUCUMBER_FORMAT |                                                                             |
-      | CUCUMBER_OPTS   | --format QAT::Formatter::ReqCoverage --out public/requirement_coverage.json |
+      | variable        | value                                                                                 |
+      | CUCUMBER_FORMAT |                                                                                       |
+      | CUCUMBER_OPTS   | --format QAT::Reporter::Formatter::ReqCoverage --out public/requirement_coverage.json |
     When I run `rake test:run`
     Then the exit status should be 1
     And a file named "public/requirement_coverage.json" should exist
@@ -405,9 +405,9 @@ Feature: Feature #602: Requirement Coverage Report:
   Scenario: Bug#1222 - Feature requirement id is lost if other tags exist after user story id tag.
     Given I use the fixture "qat_project_bug_1222_feature"
     And I set the environment variables to:
-      | variable        | value                                                                       |
-      | CUCUMBER_FORMAT |                                                                             |
-      | CUCUMBER_OPTS   | --format QAT::Formatter::ReqCoverage --out public/requirement_coverage.json |
+      | variable        | value                                                                                 |
+      | CUCUMBER_FORMAT |                                                                                       |
+      | CUCUMBER_OPTS   | --format QAT::Reporter::Formatter::ReqCoverage --out public/requirement_coverage.json |
     When I run `rake test:run`
     Then the exit status should be 0
     And a file named "public/requirement_coverage.json" should exist
@@ -460,9 +460,9 @@ Feature: Feature #602: Requirement Coverage Report:
   Scenario: Bug#1222 - Feature requirement id is lost if other tags exist after user story id tag.
     Given I use the fixture "qat_project_bug_1222_scenario"
     And I set the environment variables to:
-      | variable        | value                                                                       |
-      | CUCUMBER_FORMAT |                                                                             |
-      | CUCUMBER_OPTS   | --format QAT::Formatter::ReqCoverage --out public/requirement_coverage.json |
+      | variable        | value                                                                                 |
+      | CUCUMBER_FORMAT |                                                                                       |
+      | CUCUMBER_OPTS   | --format QAT::Reporter::Formatter::ReqCoverage --out public/requirement_coverage.json |
     When I run `rake test:run`
     Then the exit status should be 0
     And a file named "public/requirement_coverage.json" should exist

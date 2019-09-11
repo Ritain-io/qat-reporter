@@ -17,18 +17,27 @@ SimpleCov.formatters = [
 ENV['SIMPLECOV_COVERAGE_DIR'] ||= ::File.join(SimpleCov.root, 'coverage')
 ENV['SIMPLECOV_EVAL_DIR'] = ::File.realpath(::File.join(SimpleCov.root, '..', 'lib'))
 
-eval_dir                  = ::File.realpath(::File.join(SimpleCov.root, '..', 'lib'))
-ENV['SIMPLECOV_EVAL_DIR'] = eval_dir
+deprecated = [
+    File.join('qat', 'formatter', 'json.rb'),
+    File.join('qat', 'formatter', 'req_coverage.rb'),
+    File.join('qat', 'formatter', 'time_measurements.rb'),
+    File.join('qat', 'reporter', 'formatters', 'ascii_table.rb'),
+].map do |file|
+  File.join ENV['SIMPLECOV_EVAL_DIR'], file
+end
 
 SimpleCov.start do
   project_name project
   coverage_dir(ENV['SIMPLECOV_COVERAGE_DIR'])
-  command_name(::File.basename(Dir.pwd))
+  command_name(project)
   profiles.delete(:root_filter)
   filters.clear
   track_files File.join(ENV['SIMPLECOV_EVAL_DIR'], '**', '*.rb')
   add_filter do |src|
-    src.filename !~ /#{eval_dir}/
+    src.filename !~ /#{ENV['SIMPLECOV_EVAL_DIR']}/
+  end
+  add_filter do |src|
+    deprecated.include? src.filename
   end
   minimum_coverage 90
 end

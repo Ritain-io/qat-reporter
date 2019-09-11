@@ -37,7 +37,7 @@ rake test:run
 ```
 With the cucumber options:
 ```bash
---format QAT::Formatter::ReqCoverage --out public/requirement_coverage.json
+--format QAT::Reporter::Formatter::ReqCoverage --out public/requirement_coverage.json
 ```
 This will create a file ```requirement_coverage.json``` in the ```public/``` folder.
 
@@ -86,7 +86,7 @@ Time Report:
 
 Also, it is possible to generate a Json file with the cucumber options:
 ```bash
---format QAT::Formatter::TimeMeasurements --out public/times.json
+--format QAT::Reporter::Formatter::TimeMeasurements --out public/times.json
 ```
 This will create a file ```times.json``` in the ```public/``` folder with the following structure:
 ```bash

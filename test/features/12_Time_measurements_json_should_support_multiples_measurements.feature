@@ -8,9 +8,9 @@ Feature: Feature #12 Time Measurements should support multiples measurements
   Scenario: Take multiple time measurements
     Given I use the fixture "qat_project_bug_12_json_measures"
     And I set the environment variables to:
-      | variable        | value                                                             |
-      | CUCUMBER_FORMAT |                                                                   |
-      | CUCUMBER_OPTS   | --format QAT::Formatter::TimeMeasurements --out public/times.json |
+      | variable        | value                                                                       |
+      | CUCUMBER_FORMAT |                                                                             |
+      | CUCUMBER_OPTS   | --format QAT::Reporter::Formatter::TimeMeasurements --out public/times.json |
     When I run `rake test:run`
     Then the exit status should be 0
     And a file named "public/times.json" should exist

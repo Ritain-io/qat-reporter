@@ -1,6 +1,5 @@
 require 'qat/logger'
-require_relative 'helpers'
-require_relative '../formatters/ascii_table'
+require_relative '../helpers'
 
 module QAT
   module Reporter
@@ -9,7 +8,7 @@ module QAT
       # Namespace for Times Report outputs
       module Report
         include QAT::Logger
-        extend Helpers
+        extend QAT::Reporter::Helpers::TimeFormat
 
         # Builds an ascii table time report for console output
         # @return [String]
@@ -24,7 +23,7 @@ module QAT
               }
             end
 
-            QAT::Reporter::Formatters::AsciiTable.new(table_data).to_s
+            QAT::Reporter::Helpers::AsciiTable.new(table_data).to_s
           else
             "No time measure was recorded!"
           end
