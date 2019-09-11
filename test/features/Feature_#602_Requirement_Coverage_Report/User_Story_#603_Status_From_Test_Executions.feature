@@ -255,7 +255,7 @@ Feature: Feature #602: Requirement Coverage Report:
     """
 
 
-  @test#6 @user_story#1328
+  @test#6 @user_story#1328 @remote_logging
   Scenario: Run dummy QAT project with reqCoverage formatter - check if test results are published
     Given I use the fixture "qat_project_mixed_tags_mixed_results"
     And I set the environment variables to:
