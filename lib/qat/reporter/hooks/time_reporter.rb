@@ -1,4 +1,5 @@
 require_relative '../times'
+require_relative '../times/report'
 
 After do |_|
   begin
