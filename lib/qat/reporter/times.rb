@@ -1,8 +1,7 @@
 require 'qat/logger'
 require 'qat/cucumber'
 require 'qat/core_ext/object/deep_compact'
-require_relative 'times/helpers'
-require_relative 'times/report'
+require_relative 'helpers'
 require_relative 'hooks/time_reporter'
 
 module QAT
@@ -10,7 +9,7 @@ module QAT
     # namespace for time report measures
     class Times
       include QAT::Logger
-      extend Helpers
+      extend QAT::Reporter::Helpers::TimeFormat
 
       # Starts a time measure
       # @param loading_name [String] measure name

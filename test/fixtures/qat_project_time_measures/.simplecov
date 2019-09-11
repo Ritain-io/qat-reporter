@@ -11,8 +11,7 @@ SimpleCov.formatters = [
 
 SimpleCov.start do
   coverage_dir(ENV['SIMPLECOV_COVERAGE_DIR'])
-  command_name("'aruba_
-  #{::File.basename(::File.dirname(__FILE__))}_#{$$}' inception tests")
+  command_name("'aruba_#{::File.basename(::File.dirname(__FILE__))}_#{$$}' inception tests")
   profiles.delete(:root_filter)
   filters.clear
   add_filter do |src|

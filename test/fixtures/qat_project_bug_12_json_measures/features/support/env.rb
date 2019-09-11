@@ -1,3 +1,5 @@
+require 'simplecov'
+
 require 'timecop'
 
 #Jump one day between each scenario run
@@ -5,8 +7,6 @@ require 'timecop'
 Before do
   Timecop.freeze(Time.now+ 60*60*24)
 end
-
-require 'simplecov'
 
 #Lock on UTC timezone
 require 'qat/cucumber'

@@ -1,6 +1,7 @@
 require_relative '../times'
+require_relative '../times/report'
 
-After do |scenario|
+After do |_|
   begin
   if QAT::Reporter::Times.has_times?
     time_report = QAT::Reporter::Times.generate_time_report(QAT[:current_test_id])

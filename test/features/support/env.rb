@@ -1,4 +1,6 @@
 # -*- encoding : utf-8 -*-
+# Code coverage
+require 'simplecov'
 require 'minitest'
 require 'active_support/core_ext/date_time/calculations'
 require 'active_support/core_ext/time/calculations'
@@ -11,10 +13,7 @@ require 'gelf'
 require 'nokogiri'
 require_relative '../../lib/remote_logger_checker'
 require 'qat/cucumber'
-require 'qat/reporter/times'
-
-# Code coverage
-require 'simplecov'
+require 'qat/reporter'
 
 old_jenkins_url = ENV['JENKINS_URL']
 
