@@ -15,6 +15,7 @@ SimpleCov.formatters = [
 ]
 
 ENV['SIMPLECOV_COVERAGE_DIR'] ||= ::File.join(SimpleCov.root, 'coverage')
+ENV['SIMPLECOV_EVAL_DIR'] = ::File.realpath(::File.join(SimpleCov.root, '..', 'lib'))
 
 eval_dir                  = ::File.realpath(::File.join(SimpleCov.root, '..', 'lib'))
 ENV['SIMPLECOV_EVAL_DIR'] = eval_dir
@@ -25,8 +26,9 @@ SimpleCov.start do
   command_name(::File.basename(Dir.pwd))
   profiles.delete(:root_filter)
   filters.clear
+  track_files File.join(ENV['SIMPLECOV_EVAL_DIR'], '**', '*.rb')
   add_filter do |src|
     src.filename !~ /#{eval_dir}/
   end
-  minimum_coverage 75
+  minimum_coverage 90
 end
