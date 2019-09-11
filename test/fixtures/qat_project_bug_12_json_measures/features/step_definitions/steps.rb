@@ -1,36 +1,30 @@
-When(/^the user starts a time measurement (with|without) configuration$/) do |configuration|
-  if configuration.eql? 'with'
-    @label = 'test_measure'
-  else
-    @label = 'no_test_measure'
-  end
-
-  QAT::Reporter::Times.start(@label)
+When(/^the user starts a time measurement with label "([^"]*)"$/) do |label|
+  QAT::Reporter::Times.start(label)
 end
 
 And(/^executes a code snippet that lasts "([^"]*)" seconds$/) do |duration|
-  sleep(duration.to_i)
+  Timecop.freeze(Time.now + duration.to_i)
 end
 
-And(/^the user stops the time measurement$/) do
+And(/^the user stops the time measurement with label "([^"]*)"$/) do |label|
   begin
-    QAT::Reporter::Times.stop!(@label || 'test_measure')
+    QAT::Reporter::Times.stop!(label)
   rescue => @error
     log.warn "Caught exception: [#{@error.class}] #{@error.message}\n#{@error.backtrace.join("\n")}"
   end
 end
 
-Then(/^a time interval of "([^"]*)" seconds was measured$/) do |duration|
+Then(/^a time interval of "([^"]*)" seconds was measured for label "([^"]*)"$/) do |duration, label|
   begin
-    test_measure = QAT::Reporter::Times.get_duration(@label)
+    test_measure = QAT::Reporter::Times.get_duration(label)
     assert_equal(duration.to_i, test_measure.to_i)
   rescue => @error
     log.warn "Caught exception: [#{@error.class}] #{@error.message}\n#{@error.backtrace.join("\n")}"
   end
 end
 
-And(/^the execution time is formatted as "([^"]*)"$/) do |formatted|
-  test_measure = QAT::Reporter::Times.get_execution_time(@label)
+And(/^the execution time for label "([^"]*)" is formatted as "([^"]*)"$/) do |label,formatted|
+  test_measure = QAT::Reporter::Times.get_execution_time(label)
   assert_equal(formatted, test_measure)
 end
 
@@ -66,7 +60,7 @@ When(/^a code snippet that lasts "([^"]*)" seconds is measured$/) do |duration|
   end
 
   QAT::Reporter::Times.measure(@label) do
-    sleep(duration)
+    Timecop.freeze(Time.now + duration.to_i)
   end
 end
 

@@ -6,8 +6,7 @@ Feature: Feature #12 Time Measurements should support multiples measurements
 
   @test#30
   Scenario: Take multiple time measurements
-    Given I copy the directory named "../../resources/qat_project_bug_12_json_measures" to "project"
-    And I cd to "project"
+    Given I use the fixture "qat_project_bug_12_json_measures"
     And I set the environment variables to:
       | variable        | value                                                             |
       | CUCUMBER_FORMAT |                                                                   |
@@ -15,78 +14,78 @@ Feature: Feature #12 Time Measurements should support multiples measurements
     When I run `rake test:run`
     Then the exit status should be 0
     And a file named "public/times.json" should exist
-    And a file named "public/times.json" should match:
+    And a file named "public/times.json" should contain exactly:
     """
-    \[
+    [
       {
         "feature": "Time measure",
-        "tags": \[
+        "tags": [
           "@feature",
           "@feature_tag"
-        \],
-        "timestamp": "\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}[\+|\-]\d{4}",
-        "scenarios": \[
+        ],
+        "timestamp": "2008-10-05T00:00:00+0000",
+        "scenarios": [
           {
             "name": "Take a time measurement",
-            "tags": \[
+            "tags": [
               "@label",
               "@test#1",
               "@user_story#2",
               "@ola"
-            \],
-            "timestamp": "\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}[\+|\-]\d{4}",
-            "test_runs": \[
+            ],
+            "timestamp": "2008-10-05T00:00:00+0000",
+            "test_runs": [
               {
-                "id": "test_\d+_\d+_\d+",
-                "timestamp": "\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}[\+|\-]\d{4}",
-                "measurements": \[
+                "id": "test_1_1_1223251200",
+                "timestamp": "2008-10-06T00:00:00+0000",
+                "measurements": [
                   {
-                    "id": "test_measure",
-                    "name": "This is a test measure",
-                    "timestamp": "\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}[\+|\-]\d{4}",
+                    "id": "label_1",
+                    "name": "Label one",
+                    "timestamp": "2008-10-06T00:00:00+0000",
                     "time": {
-                      "secs": \d+.\d+,
-                      "human": "\d+m \d+s"
+                      "secs": 3.0,
+                      "human": "0m 03s"
                     }
                   },
                   {
-                    "id": "another_measure",
-                    "name": "This is another test measure",
-                    "timestamp": "\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}[\+|\-]\d{4}",
+                    "id": "label_2",
+                    "name": "Label 2",
+                    "timestamp": "2008-10-06T00:00:03+0000",
                     "time": {
-                      "secs": \d+.\d+,
-                      "human": "\d+m \d+s"
+                      "secs": 12.0,
+                      "human": "0m 12s"
                     }
                   }
-                \]
+                ]
               },
               {
-                "id": "test_\d+_\d+_\d+",
-                "timestamp": "\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}[\+|\-]\d{4}",
-                "measurements": \[
+                "id": "test_1_2_1223337615",
+                "timestamp": "2008-10-07T00:00:15+0000",
+                "measurements": [
                   {
-                    "id": "test_measure",
-                    "name": "This is a test measure",
-                    "timestamp": "\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}[\+|\-]\d{4}",
+                    "id": "label_1",
+                    "name": "Label one",
+                    "timestamp": "2008-10-07T00:00:15+0000",
                     "time": {
-                      "secs": \d+.\d+,
-                      "human": "\d+m \d+s"
+                      "secs": 55.0,
+                      "human": "0m 55s"
                     }
                   },
                   {
-                    "id": "another_measure",
-                    "name": "This is another test measure",
-                    "timestamp": "\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}[\+|\-]\d{4}",
+                    "id": "label_2",
+                    "name": "Label 2",
+                    "timestamp": "2008-10-07T00:01:10+0000",
                     "time": {
-                      "secs": \d+.\d+,
-                      "human": "\d+m \d+s"
+                      "secs": 79.0,
+                      "human": "1m 19s"
                     }
                   }
-                \]
+                ]
               }
-            \]
+            ]
           }
-        \]
+        ]
       }
-    \]
+    ]
     """

@@ -8,8 +8,14 @@ When(/^the user starts a time measurement (with|without) configuration$/) do |co
   QAT::Reporter::Times.start(@label)
 end
 
+When(/^the user starts a time measurement with label "([^"]*)"$/) do |label|
+  @label = label
+
+  QAT::Reporter::Times.start(@label)
+end
+
 And(/^executes a code snippet that lasts "([^"]*)" seconds$/) do |duration|
-  sleep(duration.to_i)
+  Timecop.freeze(Time.now + duration.to_i)
 end
 
 And(/^the user stops the time measurement$/) do
@@ -66,7 +72,7 @@ When(/^a code snippet that lasts "([^"]*)" seconds is measured$/) do |duration|
   end
 
   QAT::Reporter::Times.measure(@label) do
-    sleep(duration)
+    Timecop.freeze(Time.now + duration.to_i)
   end
 end
 

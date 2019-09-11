@@ -28,5 +28,5 @@ SimpleCov.start do
   add_filter do |src|
     src.filename !~ /#{eval_dir}/
   end
-  minimum_coverage 90
+  minimum_coverage 75
 end

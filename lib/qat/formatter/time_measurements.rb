@@ -91,40 +91,30 @@ module QAT
 
       #@api private
       def after_test_case(_, status)
-        duration = ::Cucumber::Formatter::DurationExtractor.new(status).result_duration
-        human_duration = format_duration(duration)
-
-
         test_run_id = QAT[:current_test_run_id]
-
         measurements = QAT::Reporter::Times.get_measures rescue []
 
         test_run_info = {
             id: test_run_id,
-            timestamp: Time.now.strftime("%FT%T%z"),
+            timestamp: QAT[:test_start_timestamp]&.strftime("%FT%T%z"),
             measurements: []
         }
 
-        unless measurements == [] || measurements == {}
-          measurements.each do |id, measure|
-            @measurement_id = id
-            @measurement_name = measure[:name]
-
-            unless @measurement_id.nil?
-              measurements = {
-                  id: @measurement_id,
-                  name: @measurement_name,
-                  timestamp: Time.now.strftime("%FT%T%z"),
-                  time: {
-                      secs: duration,
-                      human: human_duration
-                  }
-              }
-
-              test_run_info[:measurements] << measurements
-            end
+        measurements.each do |id, measure|
+          if id
+            minutes, seconds = measure[:duration].divmod(60)
+            test_run_info[:measurements] << {
+                id: id,
+                name: measure[:name],
+                timestamp: measure[:start].strftime("%FT%T%z"),
+                time: {
+                    secs: measure[:duration],
+                    human: "#{minutes}m #{'%02.0f' % seconds}s"
+                }
+            }
           end
         end
+
         if @current_scenario.is_a?(::Cucumber::Core::Ast::ScenarioOutline)
           @outline_scenario_info[:test_runs] << test_run_info
         else
