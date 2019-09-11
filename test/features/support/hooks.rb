@@ -10,8 +10,14 @@ Before '@time_measures' do
     @storage    = { tmp_folder: QAT[:tmp_folder] }
     @exceptions = []
   end
+end
 
+Before '@time_measures ~@remote_logging' do
   Timecop.freeze 2008, 10, 5
+end
+
+After do
+  Timecop.return
 end
 
 Before do

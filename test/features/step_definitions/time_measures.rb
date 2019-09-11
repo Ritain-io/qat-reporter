@@ -9,7 +9,11 @@ When(/^the user starts a time measurement (with|without) configuration$/) do |co
 end
 
 And(/^executes a code snippet that lasts "([^"]*)" seconds$/) do |duration|
-  Timecop.freeze(Time.now + duration.to_i)
+  if Timecop.frozen?
+    Timecop.freeze(Time.now + duration.to_i)
+  else
+    sleep duration.to_i
+  end
 end
 
 And(/^the user stops (?:a|the)( blocking)? time measurement$/) do |blocking|
@@ -47,7 +51,11 @@ When(/^a code snippet that lasts "([^"]*)" seconds is measured$/) do |duration|
   end
 
   QAT::Reporter::Times.measure(@label) do
-    Timecop.freeze(Time.now + duration.to_i)
+    if Timecop.frozen?
+      Timecop.freeze(Time.now + duration.to_i)
+    else
+      sleep duration.to_i
+    end
   end
 end
 
