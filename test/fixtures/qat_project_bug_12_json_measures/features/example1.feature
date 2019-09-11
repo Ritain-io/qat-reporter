@@ -10,14 +10,14 @@ Feature: Time measure
     And executes a code snippet that lasts "<time_2>" seconds
     And the user stops the time measurement with label "label_2"
     Then a time interval of "<time_1>" seconds was measured for label "label_1"
-    And the execution time for label "label_1" is formatted as "00m 0<time_1>s"
+    And the execution time for label "label_1" is formatted as "<format_1>"
     And a time interval of "<time_2>" seconds was measured for label "label_2"
-    And the execution time for label "label_2" is formatted as "00m 0<time_2>s"
+    And the execution time for label "label_2" is formatted as "<format_2>"
 
     Examples:
-      | time_1 | time_2 |
-      | 3      | 2      |
-      | 5      | 1      |
+      | time_1 | time_2 | format_1 | format_2 |
+      | 03     | 12     | 00m 03s  | 00m 12s  |
+      | 55     | 79     | 00m 55s  | 01m 19s  |
 
   @no_label
   Scenario: Failed time measurement without configuration

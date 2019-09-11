@@ -36,7 +36,7 @@ Feature: Feature #3 Time Measurements Report
             "timestamp": "2008-10-05T00:00:00+0000",
             "test_runs": [
               {
-                "id": "test_1_1_1223164800",
+                "id": "test_1_1_1223251200",
                 "timestamp": "2008-10-06T00:00:00+0000",
                 "measurements": [
                   {
@@ -44,14 +44,14 @@ Feature: Feature #3 Time Measurements Report
                     "name": "This is a test measure",
                     "timestamp": "2008-10-06T00:00:00+0000",
                     "time": {
-                      "secs": 2.000000000,
+                      "secs": 2.0,
                       "human": "0m 02s"
                     }
                   }
                 ]
               },
               {
-                "id": "test_1_2_1223251202",
+                "id": "test_1_2_1223337602",
                 "timestamp": "2008-10-07T00:00:02+0000",
                 "measurements": [
                   {
@@ -59,7 +59,7 @@ Feature: Feature #3 Time Measurements Report
                     "name": "This is a test measure",
                     "timestamp": "2008-10-07T00:00:02+0000",
                     "time": {
-                      "secs": 5.000000000,
+                      "secs": 5.0,
                       "human": "0m 05s"
                     }
                   }
@@ -87,7 +87,7 @@ Feature: Feature #3 Time Measurements Report
             "timestamp": "2008-10-09T00:00:11+0000",
             "test_runs": [
               {
-                "id": "test_2_1_1223510411",
+                "id": "test_2_1_1223596811",
                 "timestamp": "2008-10-10T00:00:11+0000",
                 "measurements": [
                   {
@@ -95,14 +95,14 @@ Feature: Feature #3 Time Measurements Report
                     "name": "This is a test measure",
                     "timestamp": "2008-10-10T00:00:11+0000",
                     "time": {
-                      "secs": 7.000000000,
+                      "secs": 7.0,
                       "human": "0m 07s"
                     }
                   }
                 ]
               },
               {
-                "id": "test_2_2_1223596818",
+                "id": "test_2_2_1223683218",
                 "timestamp": "2008-10-11T00:00:18+0000",
                 "measurements": [
                   {
@@ -110,7 +110,7 @@ Feature: Feature #3 Time Measurements Report
                     "name": "This is a test measure",
                     "timestamp": "2008-10-11T00:00:18+0000",
                     "time": {
-                      "secs": 4.000000000,
+                      "secs": 4.0,
                       "human": "0m 04s"
                     }
                   }
@@ -128,7 +128,7 @@ Feature: Feature #3 Time Measurements Report
             "timestamp": "2008-10-11T00:00:22+0000",
             "test_runs": [
               {
-                "id": "test_3_1223683222",
+                "id": "test_3_1223769622",
                 "timestamp": "2008-10-12T00:00:22+0000",
                 "measurements": [
                   {
@@ -136,7 +136,7 @@ Feature: Feature #3 Time Measurements Report
                     "name": "This is a test measure",
                     "timestamp": "2008-10-12T00:00:22+0000",
                     "time": {
-                      "secs": 2.000000000,
+                      "secs": 2.0,
                       "human": "0m 02s"
                     }
                   }
@@ -154,7 +154,7 @@ Feature: Feature #3 Time Measurements Report
             "timestamp": "2008-10-12T00:00:24+0000",
             "test_runs": [
               {
-                "id": "test_4_1223769624",
+                "id": "test_4_1223856024",
                 "timestamp": "2008-10-13T00:00:24+0000",
                 "measurements": [
                   {
@@ -162,8 +162,8 @@ Feature: Feature #3 Time Measurements Report
                     "name": "Label one",
                     "timestamp": "2008-10-13T00:00:24+0000",
                     "time": {
-                      "secs": 2.000000000,
-                      "human": "0m 02s"
+                      "secs": 4.0,
+                      "human": "0m 04s"
                     }
                   },
                   {
@@ -171,8 +171,8 @@ Feature: Feature #3 Time Measurements Report
                     "name": "Label 2",
                     "timestamp": "2008-10-13T00:00:28+0000",
                     "time": {
-                      "secs": 3.000000000,
-                      "human": "0m 3s"
+                      "secs": 3.0,
+                      "human": "0m 03s"
                     }
                   }
                 ]

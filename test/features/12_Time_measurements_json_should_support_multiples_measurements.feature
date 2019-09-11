@@ -36,7 +36,7 @@ Feature: Feature #12 Time Measurements should support multiples measurements
             "timestamp": "2008-10-05T00:00:00+0000",
             "test_runs": [
               {
-                "id": "test_1_1_1223265600",
+                "id": "test_1_1_1223251200",
                 "timestamp": "2008-10-06T00:00:00+0000",
                 "measurements": [
                   {
@@ -44,7 +44,7 @@ Feature: Feature #12 Time Measurements should support multiples measurements
                     "name": "Label one",
                     "timestamp": "2008-10-06T00:00:00+0000",
                     "time": {
-                      "secs": 3.000000000,
+                      "secs": 3.0,
                       "human": "0m 03s"
                     }
                   },
@@ -53,32 +53,32 @@ Feature: Feature #12 Time Measurements should support multiples measurements
                     "name": "Label 2",
                     "timestamp": "2008-10-06T00:00:03+0000",
                     "time": {
-                      "secs": 0.000000000,
-                      "human": "0m 02s"
+                      "secs": 12.0,
+                      "human": "0m 12s"
                     }
                   }
                 ]
               },
               {
-                "id": "test_1_2_1223352005",
-                "timestamp": "2008-10-07T00:00:05+0000",
+                "id": "test_1_2_1223337615",
+                "timestamp": "2008-10-07T00:00:15+0000",
                 "measurements": [
                   {
                     "id": "label_1",
                     "name": "Label one",
-                    "timestamp": "2008-10-07T00:00:05+0000",
+                    "timestamp": "2008-10-07T00:00:15+0000",
                     "time": {
-                      "secs": 5.000000000,
-                      "human": "0m 05s"
+                      "secs": 55.0,
+                      "human": "0m 55s"
                     }
                   },
                   {
                     "id": "label_2",
                     "name": "Label 2",
-                    "timestamp": "2008-10-07T00:00:10+0000",
+                    "timestamp": "2008-10-07T00:01:10+0000",
                     "time": {
-                      "secs": 1.000000000,
-                      "human": "0m 01s"
+                      "secs": 79.0,
+                      "human": "1m 19s"
                     }
                   }
                 ]
