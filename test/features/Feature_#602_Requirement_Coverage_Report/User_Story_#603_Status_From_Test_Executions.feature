@@ -1,4 +1,4 @@
-@epic#601 @feature#602 @user_story#603 @announce
+@epic#601 @feature#602 @user_story#603
 Feature: Feature #602: Requirement Coverage Report:
   User Story #603: Collect relationship test status and requirements from test execution
   In order to have traceability between requirements and test status
