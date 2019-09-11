@@ -1,4 +1,5 @@
 require 'fileutils'
+require 'timecop'
 
 # After do
 #   QAT::Config.clear
@@ -9,6 +10,8 @@ Before '@time_measures' do
     @storage    = { tmp_folder: QAT[:tmp_folder] }
     @exceptions = []
   end
+
+  Timecop.freeze 2008, 10, 5
 end
 
 Before do

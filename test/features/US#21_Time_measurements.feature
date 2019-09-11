@@ -44,7 +44,7 @@ Feature: User Story #21 - Test's interactions time report
     And the execution time is formatted as "00m 02s"
 
 
-  @test#14
+  @test#14 @remote_logging
   Scenario: Time measure name is read from configuration
     Given a code snippet that lasts "2" seconds is measured
     And a time interval of "2" seconds was measured
@@ -61,10 +61,9 @@ Feature: User Story #21 - Test's interactions time report
     And the execution time is formatted as "03m 20s"
 
 
-  @test#16 @announce
+  @test#16
   Scenario: A time report is printed on stdout
-    Given I copy the directory named "../../resources/qat_project_time_measures" to "project"
-    And I cd to "project"
+    Given I use the fixture "qat_project_time_measures"
     And I set the environment variables to:
       | variable        | value     |
       | CUCUMBER_FORMAT |           |
@@ -75,7 +74,7 @@ Feature: User Story #21 - Test's interactions time report
     And the output should match /\|\sThis is a test measure\s*|\s*\d{4}-\d{2}-\d{2}\s\d{2}:\d{2}:\d{2}+\d{4}\s*\|\s*\d{4}-\d{2}-\d{2}\s\d{2}:\d{2}:\d{2}+\d{4}\s*\|\s\d{2}m\s\d{2}s\s*\|/
 
 
-  @test#17
+  @test#17 @remote_logging
   Scenario: Time measure with extra information
     Given the measure extra information is defined as:
       | OS Name | OS Version | Browser Name | Browser Version |
@@ -89,7 +88,7 @@ Feature: User Story #21 - Test's interactions time report
       | Linux   | CentOS 7   | Firefox      | 67.0.0          |
 
 
-  @test#19
+  @test#19 @remote_logging
   Scenario: Time measure with extra empty/nil information
     Given the measure extra information is defined as:
       | OS Name | Browser Name |
@@ -105,10 +104,9 @@ Feature: User Story #21 - Test's interactions time report
     And the key "version" for "browser" does not exist
 
 
-  @test#20 @announce
+  @test#20
   Scenario: Take a time measurement without label in config - no time report, test is not affected
-    Given I copy the directory named "../../resources/qat_project_time_measures" to "project"
-    And I cd to "project"
+    Given I use the fixture "qat_project_time_measures"
     And I set the environment variables to:
       | variable        | value        |
       | CUCUMBER_FORMAT |              |
@@ -144,10 +142,9 @@ Feature: User Story #21 - Test's interactions time report
       | [1,2] + [3,4] | [1,2,3,4]   |
 
 
-  @bug#28 @announce
+  @bug#28
   Scenario: Take a time measurement without label in config - no time report, test is not affected
-    Given I copy the directory named "../../resources/qat_project_time_measures" to "project"
-    And I cd to "project"
+    Given I use the fixture "qat_project_time_measures"
     And I set the environment variables to:
       | variable        | value             |
       | CUCUMBER_FORMAT |                   |
