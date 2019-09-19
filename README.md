@@ -147,7 +147,7 @@ This will create a file ```times.json``` in the ```public/``` folder with the fo
 
 # Documentation
 
-[API documentation](https://readiness-it.github.io/qat-reporter/doc/QAT.html)
+[API documentation](https://readiness-it.github.io/qat-reporter/doc/index.html)
 
 ## Development
 
