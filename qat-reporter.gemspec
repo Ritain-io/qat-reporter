@@ -3,7 +3,7 @@
 
 Gem::Specification.new do |gem|
   gem.name        = 'qat-reporter'
-  gem.version     = '6.1.7'
+  gem.version     = '6.1.8'
   gem.summary     = %q{Utility for Test Reports.}
   gem.description = <<-DESC
   QAT Reporter is a collection of tool for generating test report information such as:
