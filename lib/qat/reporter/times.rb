@@ -199,7 +199,7 @@ module QAT
       private
 
       def self.measure_description(key)
-        description = QAT.configuration.dig(:qat, :reporter, :times, key)
+        description = QAT.configuration.dig(:qat, :reporter, :times, key, :name)
         raise NoLabelInConfig.new "No description was found in configuration file for key '#{key}'!" unless description
         description
       end
