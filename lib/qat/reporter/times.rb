@@ -152,11 +152,14 @@ module QAT
 
           end_time = QAT["#{label}_end".to_sym] || Time.now
 
+          measure_duration = end_time.to_f - start_time.to_f
+
           list[label] = {
               name: measure_description(label),
               start: start_time,
               end: end_time,
-              duration: end_time.to_f - start_time.to_f
+              duration: measure_duration,
+              sla_status: get_sla_status(label, measure_duration)
           }
 
           list
@@ -202,6 +205,21 @@ module QAT
         description = QAT.configuration.dig(:qat, :reporter, :times, key, :name)
         raise NoLabelInConfig.new "No description was found in configuration file for key '#{key}'!" unless description
         description
+      end
+
+      def self.get_sla_status(key, duration)
+        limit_sla = QAT.configuration.dig(:qat, :reporter, :times, key, :sla_warn)
+        error_sla = QAT.configuration.dig(:qat, :reporter, :times, key, :sla_error)
+        raise NoLabelInConfig.new "No Warning SLA was found in configuration file for key '#{key}'!" unless limit_sla
+        raise NoLabelInConfig.new "No Error SLA was found in configuration file for key '#{key}'!" unless error_sla
+
+        if duration < limit_sla.to_f
+          "Passed"
+        elsif duration < error_sla.to_f
+          "Warning"
+        else
+          "Error"
+        end
       end
     end
   end
