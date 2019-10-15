@@ -221,7 +221,7 @@ module QAT
                    "No SLA limits defined"
                  elsif warn_sla == nil && error_sla != nil #No WARNING sla limit defined:
                    if duration < error_sla
-                     "Warning"
+                     "Passed"
                    else
                      "Error"
                    end
