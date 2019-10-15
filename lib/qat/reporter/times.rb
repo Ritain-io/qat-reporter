@@ -154,12 +154,18 @@ module QAT
 
           measure_duration = end_time.to_f - start_time.to_f
 
+          warn_sla, error_sla, status_sla = sla_info(label, measure_duration)
+
           list[label] = {
               name: measure_description(label),
               start: start_time,
               end: end_time,
               duration: measure_duration,
-              sla_status: get_sla_status(label, measure_duration)
+              sla: {
+                  warn: warn_sla,
+                  error: error_sla,
+                  status: status_sla
+              }
           }
 
           list
@@ -170,22 +176,22 @@ module QAT
         duration = measure[:duration]
 
         {
-          "message"  => "partial time execution",
-          "_test_id" => test_id,
-          "_id"      => id,
-          "_name"    => measure[:name],
-          "_time"    => {
-            "secs"  => duration,
-            "human" => human_formatted_time(duration)
-          },
-          "_os"      => {
-            "name"    => QAT[:os_name],
-            "version" => QAT[:os_version]
-          },
-          "_browser" => {
-            "name"    => QAT[:browser_name],
-            "version" => QAT[:browser_version]
-          }
+            "message" => "partial time execution",
+            "_test_id" => test_id,
+            "_id" => id,
+            "_name" => measure[:name],
+            "_time" => {
+                "secs" => duration,
+                "human" => human_formatted_time(duration)
+            },
+            "_os" => {
+                "name" => QAT[:os_name],
+                "version" => QAT[:os_version]
+            },
+            "_browser" => {
+                "name" => QAT[:browser_name],
+                "version" => QAT[:browser_version]
+            }
         }.deep_compact
       end
 
@@ -207,19 +213,35 @@ module QAT
         description
       end
 
-      def self.get_sla_status(key, duration)
-        limit_sla = QAT.configuration.dig(:qat, :reporter, :times, key, :sla_warn)
-        error_sla = QAT.configuration.dig(:qat, :reporter, :times, key, :sla_error)
-        raise NoLabelInConfig.new "No Warning SLA was found in configuration file for key '#{key}'!" unless limit_sla
-        raise NoLabelInConfig.new "No Error SLA was found in configuration file for key '#{key}'!" unless error_sla
+      def self.sla_info(label, duration)
+        warn_sla = QAT.configuration.dig(:qat, :reporter, :times, label, :sla_warn)&.to_f
+        error_sla = QAT.configuration.dig(:qat, :reporter, :times, label, :sla_error)&.to_f
 
-        if duration < limit_sla.to_f
-          "Passed"
-        elsif duration < error_sla.to_f
-          "Warning"
-        else
-          "Error"
-        end
+        status = if warn_sla == nil && error_sla == nil #No sla limits defined
+                   "No SLA limits defined"
+                 elsif warn_sla == nil && error_sla != nil #No WARNING sla limit defined:
+                   if duration < error_sla
+                     "Warning"
+                   else
+                     "Error"
+                   end
+                 elsif warn_sla != nil && error_sla == nil #No ERROR sla limit defined
+                   if duration < warn_sla
+                     "Passed"
+                   else
+                     "Warning"
+                   end
+                 else #All sla limits defined
+                   if duration < warn_sla
+                     "Passed"
+                   elsif duration < error_sla
+                     "Warning"
+                   else
+                     "Error"
+                   end
+                 end
+
+        return warn_sla, error_sla, status
       end
     end
   end

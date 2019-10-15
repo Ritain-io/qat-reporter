@@ -113,7 +113,7 @@ module QAT
                       secs: measure[:duration],
                       human: "#{minutes}m #{'%02.0f' % seconds}s"
                   },
-                  sla_status: measure[:sla_status]
+                  sla: measure[:sla]
               }
             end
           end

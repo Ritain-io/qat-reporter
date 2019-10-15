@@ -47,7 +47,11 @@ Feature: Feature #3 Time Measurements Report
                       "secs": 2.0,
                       "human": "0m 02s"
                     },
-                    "sla_status": "Passed"
+                    "sla": {
+                      "warn": 10.0,
+                      "error": 15.0,
+                      "status": "Passed"
+                    }
                   }
                 ]
               },
@@ -63,7 +67,11 @@ Feature: Feature #3 Time Measurements Report
                       "secs": 5.0,
                       "human": "0m 05s"
                     },
-                    "sla_status": "Passed"
+                    "sla": {
+                      "warn": 10.0,
+                      "error": 15.0,
+                      "status": "Passed"
+                    }
                   }
                 ]
               }
@@ -100,7 +108,11 @@ Feature: Feature #3 Time Measurements Report
                       "secs": 7.0,
                       "human": "0m 07s"
                     },
-                    "sla_status": "Passed"
+                    "sla": {
+                      "warn": 10.0,
+                      "error": 15.0,
+                      "status": "Passed"
+                    }
                   }
                 ]
               },
@@ -116,7 +128,11 @@ Feature: Feature #3 Time Measurements Report
                       "secs": 4.0,
                       "human": "0m 04s"
                     },
-                    "sla_status": "Passed"
+                    "sla": {
+                      "warn": 10.0,
+                      "error": 15.0,
+                      "status": "Passed"
+                    }
                   }
                 ]
               }
@@ -143,7 +159,11 @@ Feature: Feature #3 Time Measurements Report
                       "secs": 2.0,
                       "human": "0m 02s"
                     },
-                    "sla_status": "Passed"
+                    "sla": {
+                      "warn": 10.0,
+                      "error": 15.0,
+                      "status": "Passed"
+                    }
                   }
                 ]
               }
@@ -170,7 +190,11 @@ Feature: Feature #3 Time Measurements Report
                       "secs": 4.0,
                       "human": "0m 04s"
                     },
-                    "sla_status": "Passed"
+                    "sla": {
+                      "warn": 10.0,
+                      "error": 15.0,
+                      "status": "Passed"
+                    }
                   },
                   {
                     "id": "label_2",
@@ -180,7 +204,11 @@ Feature: Feature #3 Time Measurements Report
                       "secs": 3.0,
                       "human": "0m 03s"
                     },
-                    "sla_status": "Passed"
+                    "sla": {
+                      "warn": 10.0,
+                      "error": 15.0,
+                      "status": "Passed"
+                    }
                   }
                 ]
               }

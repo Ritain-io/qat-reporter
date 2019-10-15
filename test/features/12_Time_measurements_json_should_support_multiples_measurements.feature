@@ -47,7 +47,11 @@ Feature: Feature #12 Time Measurements should support multiples measurements
                       "secs": 3.0,
                       "human": "0m 03s"
                     },
-                    "sla_status": "Passed"
+                    "sla": {
+                      "warn": 10.0,
+                      "error": 15.0,
+                      "status": "Passed"
+                    }
                   },
                   {
                     "id": "label_2",
@@ -57,7 +61,11 @@ Feature: Feature #12 Time Measurements should support multiples measurements
                       "secs": 12.0,
                       "human": "0m 12s"
                     },
-                    "sla_status": "Warning"
+                    "sla": {
+                      "warn": 10.0,
+                      "error": 15.0,
+                      "status": "Warning"
+                    }
                   }
                 ]
               },
@@ -73,7 +81,11 @@ Feature: Feature #12 Time Measurements should support multiples measurements
                       "secs": 55.0,
                       "human": "0m 55s"
                     },
-                    "sla_status": "Error"
+                    "sla": {
+                      "warn": 10.0,
+                      "error": 15.0,
+                      "status": "Error"
+                    }
                   },
                   {
                     "id": "label_2",
@@ -83,7 +95,11 @@ Feature: Feature #12 Time Measurements should support multiples measurements
                       "secs": 79.0,
                       "human": "1m 19s"
                     },
-                    "sla_status": "Error"
+                    "sla": {
+                      "warn": 10.0,
+                      "error": 15.0,
+                      "status": "Error"
+                    }
                   }
                 ]
               }
