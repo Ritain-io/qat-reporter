@@ -118,7 +118,8 @@ Feature: Deprecate formatters
                     "time": {
                       "secs": 2.0,
                       "human": "0m 02s"
-                    }
+                    },
+                    "sla_status": "Passed"
                   }
                 ]
               },
@@ -133,7 +134,8 @@ Feature: Deprecate formatters
                     "time": {
                       "secs": 5.0,
                       "human": "0m 05s"
-                    }
+                    },
+                    "sla_status": "Passed"
                   }
                 ]
               }
@@ -169,7 +171,8 @@ Feature: Deprecate formatters
                     "time": {
                       "secs": 7.0,
                       "human": "0m 07s"
-                    }
+                    },
+                    "sla_status": "Passed"
                   }
                 ]
               },
@@ -184,7 +187,8 @@ Feature: Deprecate formatters
                     "time": {
                       "secs": 4.0,
                       "human": "0m 04s"
-                    }
+                    },
+                    "sla_status": "Passed"
                   }
                 ]
               }
@@ -210,7 +214,8 @@ Feature: Deprecate formatters
                     "time": {
                       "secs": 2.0,
                       "human": "0m 02s"
-                    }
+                    },
+                    "sla_status": "Passed"
                   }
                 ]
               }
@@ -236,7 +241,8 @@ Feature: Deprecate formatters
                     "time": {
                       "secs": 4.0,
                       "human": "0m 04s"
-                    }
+                    },
+                    "sla_status": "Passed"
                   },
                   {
                     "id": "label_2",
@@ -245,7 +251,8 @@ Feature: Deprecate formatters
                     "time": {
                       "secs": 3.0,
                       "human": "0m 03s"
-                    }
+                    },
+                    "sla_status": "Passed"
                   }
                 ]
               }
