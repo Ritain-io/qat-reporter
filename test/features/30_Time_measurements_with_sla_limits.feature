@@ -64,7 +64,7 @@ Feature: Feature #12 Time Measurements should support multiples measurements
                     "sla": {
                       "warn": null,
                       "error": null,
-                      "status": "No SLA limits defined"
+                      "status": "Passed"
                     }
                   },
                   {
@@ -126,7 +126,7 @@ Feature: Feature #12 Time Measurements should support multiples measurements
                     "sla": {
                       "warn": null,
                       "error": null,
-                      "status": "No SLA limits defined"
+                      "status": "Passed"
                     }
                   },
                   {
@@ -213,7 +213,7 @@ Feature: Feature #12 Time Measurements should support multiples measurements
                     "sla": {
                       "warn": null,
                       "error": null,
-                      "status": "No SLA limits defined"
+                      "status": "Passed"
                     }
                   }
                 ]
@@ -233,7 +233,7 @@ Feature: Feature #12 Time Measurements should support multiples measurements
                     "sla": {
                       "warn": null,
                       "error": null,
-                      "status": "No SLA limits defined"
+                      "status": "Passed"
                     }
                   }
                 ]

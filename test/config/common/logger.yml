@@ -13,7 +13,7 @@ log4r_config:
     - name: QAT::Reporter::Times
       level: 'INFO'
       outputters:
-        - ReqCoverage
+        - TimesOutputter
 
   outputters:
     - type: QatConsoleOutputter
@@ -24,6 +24,15 @@ log4r_config:
       gelf_server: "localhost"
       gelf_port: 12202
       facility: 'QAT Requirement Coverage Test'
+      formatter:
+        type: PatternFormatter
+        pattern: "%m"
+
+    - type: QatRemoteOutputter
+      name: TimesOutputter
+      gelf_server: "localhost"
+      gelf_port: 12203
+      facility: 'QAT Time Measurements'
       formatter:
         type: PatternFormatter
         pattern: "%m"
