@@ -1,2 +1,5 @@
-- pipeline.id: main
-  path.config: "/usr/share/logstash/pipeline/logstash.conf"
+- pipeline.id: test_results
+  path.config: "/usr/share/logstash/pipeline/test_results.conf"
+
+- pipeline.id: test_times
+  path.config: "/usr/share/logstash/pipeline/test_times.conf"

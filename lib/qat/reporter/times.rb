@@ -208,12 +208,12 @@ module QAT
       private
 
       def self.measure_description(key)
-        if QAT.configuration.dig(:qat, :reporter, :times, key).is_a?(Hash)
-          description = QAT.configuration.dig(:qat, :reporter, :times, key, :name)
-        else
-          warn "[WARN] DEPRECATED: Measurements definition without limits will be removed in a 7.0 version, please use following configuration instead:\nmeasure_id:\n  name: Test measure\n  sla_warn: 10\n  sla_error: 15"
-          description = QAT.configuration.dig(:qat, :reporter, :times, key)
-        end
+        description = if QAT.configuration.dig(:qat, :reporter, :times, key).is_a?(Hash)
+                        QAT.configuration.dig(:qat, :reporter, :times, key, :name)
+                      else
+                        warn "[WARN] DEPRECATED: Measurements definition without limits will be removed in a 7.0 version, please use following configuration instead:\nmeasure_id:\n  name: Test measure\n  sla_warn: 10\n  sla_error: 15"
+                        QAT.configuration.dig(:qat, :reporter, :times, key)
+                      end
 
         raise NoLabelInConfig.new "No description was found in configuration file for key '#{key}'!" unless description
         description
@@ -225,28 +225,13 @@ module QAT
           error_sla = QAT.configuration.dig(:qat, :reporter, :times, key, :sla_error)&.to_f
         end
 
-        status = if warn_sla == nil && error_sla == nil #No sla limits defined
-                   "No SLA limits defined"
-                 elsif warn_sla == nil && error_sla != nil #No WARNING sla limit defined:
-                   if duration < error_sla
-                     "Passed"
-                   else
-                     "Error"
-                   end
-                 elsif warn_sla != nil && error_sla == nil #No ERROR sla limit defined
-                   if duration < warn_sla
-                     "Passed"
-                   else
-                     "Warning"
-                   end
-                 else #All sla limits defined
-                   if duration < warn_sla
-                     "Passed"
-                   elsif duration < error_sla
-                     "Warning"
-                   else
-                     "Error"
-                   end
+
+        status = if error_sla && duration > error_sla
+                   "Error"
+                 elsif warn_sla && duration > warn_sla
+                   "Warning"
+                 else
+                   "Passed"
                  end
 
         return warn_sla, error_sla, status
