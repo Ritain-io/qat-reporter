@@ -208,14 +208,22 @@ module QAT
       private
 
       def self.measure_description(key)
-        description = QAT.configuration.dig(:qat, :reporter, :times, key, :name)
+        if QAT.configuration.dig(:qat, :reporter, :times, key).is_a?(Hash)
+          description = QAT.configuration.dig(:qat, :reporter, :times, key, :name)
+        else
+          warn "[WARN] DEPRECATED: Measurements definition without limits will be removed in a 7.0 version, please use following configuration instead:\nmeasure_id:\n  name: Test measure\n  sla_warn: 10\n  sla_error: 15"
+          description = QAT.configuration.dig(:qat, :reporter, :times, key)
+        end
+
         raise NoLabelInConfig.new "No description was found in configuration file for key '#{key}'!" unless description
         description
       end
 
-      def self.sla_info(label, duration)
-        warn_sla = QAT.configuration.dig(:qat, :reporter, :times, label, :sla_warn)&.to_f
-        error_sla = QAT.configuration.dig(:qat, :reporter, :times, label, :sla_error)&.to_f
+      def self.sla_info(key, duration)
+        if QAT.configuration.dig(:qat, :reporter, :times, key).is_a?(Hash)
+          warn_sla = QAT.configuration.dig(:qat, :reporter, :times, key, :sla_warn)&.to_f
+          error_sla = QAT.configuration.dig(:qat, :reporter, :times, key, :sla_error)&.to_f
+        end
 
         status = if warn_sla == nil && error_sla == nil #No sla limits defined
                    "No SLA limits defined"
