@@ -2,6 +2,7 @@
 language: ruby
 rvm:
   - 2.5
+  - 2.6
 
 services:
   - docker
@@ -33,7 +34,7 @@ jobs:
 #      if: tag IS blank
 
     - name: "unit tests"
-      env: ELK_VERSION=7.2.0 ES_USER=elastic ES_PASSWD=changeme
+      env: ELK_VERSION=7.4.0 ES_USER=elastic ES_PASSWD=changeme
       script:
         - docker-compose up -d
         - until curl --user "$ES_USER:$ES_PASSWD" --silent -XGET --fail http://localhost:9200; do printf '.'; sleep 1; done
