@@ -1,5 +1,5 @@
 host: localhost
 port: 9200
 scheme: http
-index: tests-qat-reporter
+index: tests-qat-reporter-results
 facility: "QAT Requirement Coverage Test"
