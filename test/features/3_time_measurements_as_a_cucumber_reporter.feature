@@ -220,7 +220,7 @@ Feature: Feature #3 Time Measurements Report
     """
 
   @test#29
-  Scenario: Take a time measurement on project with no requirement ids
+  Scenario: Take a time measurement on project with no measure labels
     Given I use the fixture "qat_project_no_requirement_ids"
     And I set the environment variables to:
       | variable        | value                                                                       |

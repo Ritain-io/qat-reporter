@@ -166,7 +166,17 @@ Feature: Feature #12 Time Measurements should support multiples measurements
     ]
     """
 
-  @test#36
+  @test#36 @remote_logging
+  Scenario: Time measure name is read from configuration and times.json is not created
+    Given a code snippet that lasts "2" seconds is measured
+    And a time interval of "2" seconds was measured
+    And the execution time is formatted as "00m 02s"
+    When the time report is sent to the remote server
+    Then the time measure was recorded with name "This is a test measure"
+    And a file named "public/times.json" should not exist
+
+
+  @test#37
   Scenario: Take multiple time measurements with deprecated config
     Given I use the fixture "qat_project_json_measures_deprecated_without_sla_limits"
     And I set the environment variables to:
