@@ -67,7 +67,7 @@ module QAT
         #@api private
         def after_test_case(_, status)
           test_status = if status.is_a? ::Cucumber::Core::Test::Result::Passed
-                          "passed"
+                          Times.test_sla_status
                         elsif status.is_a? ::Cucumber::Core::Test::Result::Failed
                           "failed"
                         else

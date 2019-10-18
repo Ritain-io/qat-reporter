@@ -195,17 +195,6 @@ module QAT
         }.deep_compact
       end
 
-      #No start time value error class
-      class NoStartTimeError < StandardError
-      end
-      #No end time value error class
-      class NoEndtTimeError < StandardError
-      end
-      #No label in yml configuration error class
-      class NoLabelInConfig < StandardError
-      end
-
-      private
 
       def self.measure_description(key)
         description = if QAT.configuration.dig(:qat, :reporter, :times, key).is_a?(Hash)
@@ -235,6 +224,37 @@ module QAT
                  end
 
         return warn_sla, error_sla, status
+      end
+
+
+      def self.test_sla_status
+        measures = get_measures
+        measures.any? do |measure_key, info|
+          sla_status = info.dig(:sla, :status)
+
+          test_status = case sla_status
+                        when "Passed"
+                          "passed"
+                        when "Warning"
+                          "passed with SLA Warning"
+                        else
+                          "passed with SLA Error"
+                        end
+
+          log.debug "SLA status for measure with key: #{measure_key} is '#{test_status}'"
+          return test_status
+        end
+        "passed"
+      end
+
+      #No start time value error class
+      class NoStartTimeError < StandardError
+      end
+      #No end time value error class
+      class NoEndtTimeError < StandardError
+      end
+      #No label in yml configuration error class
+      class NoLabelInConfig < StandardError
       end
     end
   end
