@@ -1,8 +1,8 @@
 @feature#12 @time_measures
-Feature: Feature #12 Time Measurements should support multiples measurements
+Feature: Feature #30 Time Measurements should support multiples measurements
   As a user,
   In order to see my test's interactions times,
-  I want to have a test interactions' time report
+  I want to have a test interactions' time report with SLA limits
 
   @test#35
   Scenario: Take multiple time measurements
