@@ -118,6 +118,11 @@ Feature: Deprecate formatters
                     "time": {
                       "secs": 2.0,
                       "human": "0m 02s"
+                    },
+                    "sla": {
+                      "warn": 10.0,
+                      "error": 15.0,
+                      "status": "Passed"
                     }
                   }
                 ]
@@ -133,6 +138,11 @@ Feature: Deprecate formatters
                     "time": {
                       "secs": 5.0,
                       "human": "0m 05s"
+                    },
+                    "sla": {
+                      "warn": 10.0,
+                      "error": 15.0,
+                      "status": "Passed"
                     }
                   }
                 ]
@@ -169,6 +179,11 @@ Feature: Deprecate formatters
                     "time": {
                       "secs": 7.0,
                       "human": "0m 07s"
+                    },
+                    "sla": {
+                      "warn": 10.0,
+                      "error": 15.0,
+                      "status": "Passed"
                     }
                   }
                 ]
@@ -184,6 +199,11 @@ Feature: Deprecate formatters
                     "time": {
                       "secs": 4.0,
                       "human": "0m 04s"
+                    },
+                    "sla": {
+                      "warn": 10.0,
+                      "error": 15.0,
+                      "status": "Passed"
                     }
                   }
                 ]
@@ -210,6 +230,11 @@ Feature: Deprecate formatters
                     "time": {
                       "secs": 2.0,
                       "human": "0m 02s"
+                    },
+                    "sla": {
+                      "warn": 10.0,
+                      "error": 15.0,
+                      "status": "Passed"
                     }
                   }
                 ]
@@ -236,6 +261,11 @@ Feature: Deprecate formatters
                     "time": {
                       "secs": 4.0,
                       "human": "0m 04s"
+                    },
+                    "sla": {
+                      "warn": 10.0,
+                      "error": 15.0,
+                      "status": "Passed"
                     }
                   },
                   {
@@ -245,6 +275,11 @@ Feature: Deprecate formatters
                     "time": {
                       "secs": 3.0,
                       "human": "0m 03s"
+                    },
+                    "sla": {
+                      "warn": 10.0,
+                      "error": 15.0,
+                      "status": "Passed"
                     }
                   }
                 ]

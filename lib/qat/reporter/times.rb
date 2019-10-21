@@ -152,11 +152,20 @@ module QAT
 
           end_time = QAT["#{label}_end".to_sym] || Time.now
 
+          measure_duration = end_time.to_f - start_time.to_f
+
+          warn_sla, error_sla, status_sla = sla_info(label, measure_duration)
+
           list[label] = {
               name: measure_description(label),
               start: start_time,
               end: end_time,
-              duration: end_time.to_f - start_time.to_f
+              duration: measure_duration,
+              sla: {
+                  warn: warn_sla,
+                  error: error_sla,
+                  status: status_sla
+              }
           }
 
           list
@@ -167,23 +176,75 @@ module QAT
         duration = measure[:duration]
 
         {
-          "message"  => "partial time execution",
-          "_test_id" => test_id,
-          "_id"      => id,
-          "_name"    => measure[:name],
-          "_time"    => {
-            "secs"  => duration,
-            "human" => human_formatted_time(duration)
-          },
-          "_os"      => {
-            "name"    => QAT[:os_name],
-            "version" => QAT[:os_version]
-          },
-          "_browser" => {
-            "name"    => QAT[:browser_name],
-            "version" => QAT[:browser_version]
-          }
+            "message" => "partial time execution",
+            "_test_id" => test_id,
+            "_id" => id,
+            "_name" => measure[:name],
+            "_time" => {
+                "secs" => duration,
+                "human" => human_formatted_time(duration)
+            },
+            "_os" => {
+                "name" => QAT[:os_name],
+                "version" => QAT[:os_version]
+            },
+            "_browser" => {
+                "name" => QAT[:browser_name],
+                "version" => QAT[:browser_version]
+            }
         }.deep_compact
+      end
+
+
+      def self.measure_description(key)
+        description = if QAT.configuration.dig(:qat, :reporter, :times, key).is_a?(Hash)
+                        QAT.configuration.dig(:qat, :reporter, :times, key, :name)
+                      else
+                        warn "[WARN] DEPRECATED: Measurements definition without limits will be removed in a 7.0 version, please use following configuration instead:\nmeasure_id:\n  name: Test measure\n  sla_warn: 10\n  sla_error: 15"
+                        QAT.configuration.dig(:qat, :reporter, :times, key)
+                      end
+
+        raise NoLabelInConfig.new "No description was found in configuration file for key '#{key}'!" unless description
+        description
+      end
+
+      def self.sla_info(key, duration)
+        if QAT.configuration.dig(:qat, :reporter, :times, key).is_a?(Hash)
+          warn_sla = QAT.configuration.dig(:qat, :reporter, :times, key, :sla_warn)&.to_f
+          error_sla = QAT.configuration.dig(:qat, :reporter, :times, key, :sla_error)&.to_f
+        end
+
+
+        status = if error_sla && duration > error_sla
+                   "Error"
+                 elsif warn_sla && duration > warn_sla
+                   "Warning"
+                 else
+                   "Passed"
+                 end
+
+        return warn_sla, error_sla, status
+      end
+
+
+      def self.test_sla_status
+        measures = get_measures
+        measures.any? do |measure_key, info|
+          sla_status = info.dig(:sla, :status)
+
+          test_status = case sla_status
+                        when "Passed"
+                          "passed"
+                        when "Warning"
+                          "passed with SLA Warning"
+                        else
+                          "passed with SLA Error"
+                        end
+
+          log.debug "SLA status for measure with key: #{measure_key} is '#{test_status}'"
+          return test_status
+        end
+        "passed"
       end
 
       #No start time value error class
@@ -194,14 +255,6 @@ module QAT
       end
       #No label in yml configuration error class
       class NoLabelInConfig < StandardError
-      end
-
-      private
-
-      def self.measure_description(key)
-        description = QAT.configuration.dig(:qat, :reporter, :times, key)
-        raise NoLabelInConfig.new "No description was found in configuration file for key '#{key}'!" unless description
-        description
       end
     end
   end

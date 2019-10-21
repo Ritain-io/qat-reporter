@@ -1,1 +1,4 @@
-test_measure: This is a test measure
+test_measure:
+  name: This is a test measure
+  sla_warn: 10
+  sla_error: 15

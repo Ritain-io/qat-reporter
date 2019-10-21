@@ -65,7 +65,7 @@ And(/^the time measure was recorded with name "([^"]*)"$/) do |name|
                       base_interval: 0.5,
                       multiplier:    1.0,
                       rand_factor:   0.0 do
-    hits = get_test_results
+    hits = get_test_times
     @test_results = hits.map { |hit| hit['_source'] }.sort { |a, b| Time.parse(a['@timestamp']) <=> Time.parse(b['@timestamp']) } rescue hits
     assert @test_results.size == 1, "Insufficient test results were found in time interval [#{@test_start_ts}, #{Time.now.iso8601(3)}]\nResult :#{hits}"
   end
@@ -110,7 +110,7 @@ Then(/^the time measure was recorded with information:$/) do |table|
                       base_interval: 0.5,
                       multiplier:    1.0,
                       rand_factor:   0.0 do
-    hits = get_test_results
+    hits = get_test_times
     @test_results = hits.map { |hit| hit['_source'] }.sort { |a, b| Time.parse(a['@timestamp']) <=> Time.parse(b['@timestamp']) } rescue hits
     assert @test_results.size == 1, "Insufficient test results were found in time interval [#{@test_start_ts}, #{Time.now.iso8601(3)}]\nResult :#{hits}"
   end

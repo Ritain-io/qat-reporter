@@ -1,9 +1,8 @@
 #encoding: utf-8
-# require File.expand_path(File.join(File.dirname(__FILE__), 'lib', 'qat', 'version.rb'))
 
 Gem::Specification.new do |gem|
   gem.name        = 'qat-reporter'
-  gem.version     = '6.1.8'
+  gem.version     = '6.2.0'
   gem.summary     = %q{Utility for Test Reports.}
   gem.description = <<-DESC
   QAT Reporter is a collection of tool for generating test report information such as:
@@ -29,5 +28,5 @@ Gem::Specification.new do |gem|
   gem.add_dependency 'qat-logger', '~> 6.0'
   gem.add_dependency 'qat-core', '~> 6.0'
 
-  gem.add_development_dependency 'qat-devel', '~> 6.0', '>= 6.0.1'
+  gem.add_development_dependency 'qat-devel', '~> 6.0'
 end

@@ -46,6 +46,11 @@ Feature: Feature #3 Time Measurements Report
                     "time": {
                       "secs": 2.0,
                       "human": "0m 02s"
+                    },
+                    "sla": {
+                      "warn": 10.0,
+                      "error": 15.0,
+                      "status": "Passed"
                     }
                   }
                 ]
@@ -61,6 +66,11 @@ Feature: Feature #3 Time Measurements Report
                     "time": {
                       "secs": 5.0,
                       "human": "0m 05s"
+                    },
+                    "sla": {
+                      "warn": 10.0,
+                      "error": 15.0,
+                      "status": "Passed"
                     }
                   }
                 ]
@@ -97,6 +107,11 @@ Feature: Feature #3 Time Measurements Report
                     "time": {
                       "secs": 7.0,
                       "human": "0m 07s"
+                    },
+                    "sla": {
+                      "warn": 10.0,
+                      "error": 15.0,
+                      "status": "Passed"
                     }
                   }
                 ]
@@ -112,6 +127,11 @@ Feature: Feature #3 Time Measurements Report
                     "time": {
                       "secs": 4.0,
                       "human": "0m 04s"
+                    },
+                    "sla": {
+                      "warn": 10.0,
+                      "error": 15.0,
+                      "status": "Passed"
                     }
                   }
                 ]
@@ -138,6 +158,11 @@ Feature: Feature #3 Time Measurements Report
                     "time": {
                       "secs": 2.0,
                       "human": "0m 02s"
+                    },
+                    "sla": {
+                      "warn": 10.0,
+                      "error": 15.0,
+                      "status": "Passed"
                     }
                   }
                 ]
@@ -164,6 +189,11 @@ Feature: Feature #3 Time Measurements Report
                     "time": {
                       "secs": 4.0,
                       "human": "0m 04s"
+                    },
+                    "sla": {
+                      "warn": 10.0,
+                      "error": 15.0,
+                      "status": "Passed"
                     }
                   },
                   {
@@ -173,6 +203,11 @@ Feature: Feature #3 Time Measurements Report
                     "time": {
                       "secs": 3.0,
                       "human": "0m 03s"
+                    },
+                    "sla": {
+                      "warn": 10.0,
+                      "error": 15.0,
+                      "status": "Passed"
                     }
                   }
                 ]
@@ -185,7 +220,7 @@ Feature: Feature #3 Time Measurements Report
     """
 
   @test#29
-  Scenario: Take a time measurement on project with no requirement ids
+  Scenario: Take a time measurement on project with no measure labels
     Given I use the fixture "qat_project_no_requirement_ids"
     And I set the environment variables to:
       | variable        | value                                                                       |
