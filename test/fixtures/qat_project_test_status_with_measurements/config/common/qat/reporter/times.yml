@@ -1,0 +1,16 @@
+test_measure:
+  name: This is a test measure
+  sla_warn: 10
+  sla_error: 15
+label_with_limits:
+  name: Label 2
+  sla_warn: 10
+  sla_error: 15
+label_without_limits:
+  name: No limit measure
+label_with_warn_limit:
+  name: Warn limit measure
+  sla_warn: 10
+label_with_error_limit:
+  name: Error limit measure
+  sla_error: 15
