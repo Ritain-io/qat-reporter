@@ -37,6 +37,7 @@ Feature: Feature #3 Time Measurements Report
             "test_runs": [
               {
                 "id": "test_1_1_1223251200",
+                "test_status": "passed",
                 "timestamp": "2008-10-06T00:00:00+0000",
                 "measurements": [
                   {
@@ -57,6 +58,7 @@ Feature: Feature #3 Time Measurements Report
               },
               {
                 "id": "test_1_2_1223337602",
+                "test_status": "passed",
                 "timestamp": "2008-10-07T00:00:02+0000",
                 "measurements": [
                   {
@@ -98,6 +100,7 @@ Feature: Feature #3 Time Measurements Report
             "test_runs": [
               {
                 "id": "test_2_1_1223596811",
+                "test_status": "passed",
                 "timestamp": "2008-10-10T00:00:11+0000",
                 "measurements": [
                   {
@@ -118,6 +121,7 @@ Feature: Feature #3 Time Measurements Report
               },
               {
                 "id": "test_2_2_1223683218",
+                "test_status": "passed",
                 "timestamp": "2008-10-11T00:00:18+0000",
                 "measurements": [
                   {
@@ -149,6 +153,7 @@ Feature: Feature #3 Time Measurements Report
             "test_runs": [
               {
                 "id": "test_3_1223769622",
+                "test_status": "passed",
                 "timestamp": "2008-10-12T00:00:22+0000",
                 "measurements": [
                   {
@@ -180,6 +185,7 @@ Feature: Feature #3 Time Measurements Report
             "test_runs": [
               {
                 "id": "test_4_1223856024",
+                "test_status": "passed",
                 "timestamp": "2008-10-13T00:00:24+0000",
                 "measurements": [
                   {

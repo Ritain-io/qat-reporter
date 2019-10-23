@@ -96,8 +96,21 @@ module QAT
           test_run_id = QAT[:current_test_run_id]
           measurements = QAT::Reporter::Times.get_measures rescue []
 
+          test_status = if status.is_a? ::Cucumber::Core::Test::Result::Passed
+                          if QAT::Reporter.const_defined?('Times')
+                            Times.test_sla_status
+                          else
+                            "passed"
+                          end
+                        elsif status.is_a? ::Cucumber::Core::Test::Result::Failed
+                          "failed"
+                        else
+                          "not_runned"
+                        end
+
           test_run_info = {
               id: test_run_id,
+              test_status: test_status,
               timestamp: QAT[:test_start_timestamp]&.strftime("%FT%T%z"),
               measurements: []
           }
