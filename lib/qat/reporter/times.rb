@@ -214,6 +214,10 @@ module QAT
           error_sla = QAT.configuration.dig(:qat, :reporter, :times, key, :sla_error)&.to_f
         end
 
+        #If no measure end found, returns measure with status error
+        unless QAT["#{key}_end".to_sym]
+          return warn_sla, error_sla, "Error"
+        end
 
         status = if error_sla && duration > error_sla
                    "Error"
@@ -228,23 +232,21 @@ module QAT
 
 
       def self.test_sla_status
-        measures = get_measures
-        measures.any? do |measure_key, info|
+        measures = get_measures rescue []
+        status_results = []
+        measures&.each do |measure_key, info|
           sla_status = info.dig(:sla, :status)
-
-          test_status = case sla_status
-                        when "Passed"
-                          "passed"
-                        when "Warning"
-                          "passed with SLA Warning"
-                        else
-                          "passed with SLA Error"
-                        end
-
-          log.debug "SLA status for measure with key: #{measure_key} is '#{test_status}'"
-          return test_status
+          log.debug "SLA status for measure with key: #{measure_key} is '#{sla_status}'"
+          status_results << sla_status
         end
-        "passed"
+
+        if status_results.include? 'Error'
+          return "passed with SLA Error"
+        elsif status_results.include? 'Warning'
+          return "passed with SLA Warning"
+        else
+          return "passed"
+        end
       end
 
       #No start time value error class

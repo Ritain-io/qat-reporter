@@ -37,6 +37,7 @@ Feature: Feature #30 Time Measurements should support multiples measurements
             "test_runs": [
               {
                 "id": "test_1_1_1223251200",
+                "test_status": "passed with SLA Warning",
                 "timestamp": "2008-10-06T00:00:00+0000",
                 "measurements": [
                   {
@@ -99,6 +100,7 @@ Feature: Feature #30 Time Measurements should support multiples measurements
               },
               {
                 "id": "test_1_2_1223337615",
+                "test_status": "passed with SLA Error",
                 "timestamp": "2008-10-07T00:00:15+0000",
                 "measurements": [
                   {
@@ -210,6 +212,7 @@ Feature: Feature #30 Time Measurements should support multiples measurements
             "test_runs": [
               {
                 "id": "test_1_1_1223251200",
+                "test_status": "passed",
                 "timestamp": "2008-10-06T00:00:00+0000",
                 "measurements": [
                   {
@@ -230,6 +233,7 @@ Feature: Feature #30 Time Measurements should support multiples measurements
               },
               {
                 "id": "test_1_2_1223337602",
+                "test_status": "passed",
                 "timestamp": "2008-10-07T00:00:02+0000",
                 "measurements": [
                   {
