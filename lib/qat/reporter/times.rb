@@ -142,7 +142,7 @@ module QAT
 
       # Calculates time duration for all measures
       # @return [Hash]
-      def self.get_measures(test_status = nil)
+      def self.get_measures
         time_keys = get_time_keys
 
         return {} unless time_keys.any?
@@ -154,7 +154,7 @@ module QAT
 
           measure_duration = end_time.to_f - start_time.to_f
 
-          warn_sla, error_sla, status_sla = sla_info(label, measure_duration, test_status)
+          warn_sla, error_sla, status_sla = sla_info(label, measure_duration)
 
           list[label] = {
               name: measure_description(label),
@@ -208,7 +208,7 @@ module QAT
         description
       end
 
-      def self.sla_info(key, duration, test_status)
+      def self.sla_info(key, duration)
         if QAT.configuration.dig(:qat, :reporter, :times, key).is_a?(Hash)
           warn_sla = QAT.configuration.dig(:qat, :reporter, :times, key, :sla_warn)&.to_f
           error_sla = QAT.configuration.dig(:qat, :reporter, :times, key, :sla_error)&.to_f
@@ -219,9 +219,7 @@ module QAT
           return warn_sla, error_sla, "Error"
         end
 
-        status = if test_status == "failed"
-                   "Error"
-                 elsif error_sla && duration > error_sla
+        status = if error_sla && duration > error_sla
                    "Error"
                  elsif warn_sla && duration > warn_sla
                    "Warning"
