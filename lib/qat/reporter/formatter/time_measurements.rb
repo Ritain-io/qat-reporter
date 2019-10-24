@@ -94,7 +94,6 @@ module QAT
         #@api private
         def after_test_case(_, status)
           test_run_id = QAT[:current_test_run_id]
-          measurements = QAT::Reporter::Times.get_measures rescue []
 
           test_status = if status.is_a? ::Cucumber::Core::Test::Result::Passed
                           if QAT::Reporter.const_defined?('Times')
@@ -107,6 +106,8 @@ module QAT
                         else
                           "not_runned"
                         end
+
+          measurements = QAT::Reporter::Times.get_measures(test_status) rescue []
 
           test_run_info = {
               id: test_run_id,

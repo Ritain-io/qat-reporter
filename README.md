@@ -52,9 +52,12 @@ project
 |                   | times.yml
 ```
 
-The file times.yml contains the time measurements tag and description:
+The file times.yml contains the time measurements tag with name description and its user defined limits:
 ```bash
-test_measure: This is a test measure
+test_measure:
+  name: This is a test measure
+  sla_warn: 10
+  sla_error: 15
 ```
 To start measuring an interaction:
 ```ruby

@@ -7,6 +7,7 @@ Gem::Specification.new do |gem|
   gem.description = <<-DESC
   QAT Reporter is a collection of tool for generating test report information such as:
     - Requirement Coverage
+    - Time Measurements
   DESC
 
   gem.email    = 'qatoolkit@readinessit.com'
