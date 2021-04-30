@@ -32,7 +32,7 @@ end
 Then(/^a time interval of "([^"]*)" seconds was measured$/) do |duration|
   begin
     test_measure = QAT::Reporter::Times.get_duration(@label)
-    assert_equal(duration, test_measure.to_i)
+    assert_equal(duration.to_i, test_measure.to_i)
   rescue => @error
     log.warn "Caught exception: [#{@error.class}] #{@error.message}\n#{@error.backtrace.join("\n")}"
   end

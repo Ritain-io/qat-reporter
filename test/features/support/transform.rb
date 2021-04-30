@@ -1,11 +1,24 @@
-Transform /^nil$/ do |_|
-  nil
-end
+ParameterType(
+  regexp: /""/,
+  transformer: ->  do
+   nil
+  end
+)
 
-Transform /^\d+$/ do |num|
-  num.to_i
-end
 
-Transform /^[A-Z:]+::VERSION$/ do |constant|
-  eval constant
-end
+ParameterType(
+
+  regexp: /^\d+$/,
+  transformer: -> (regexp) do
+    regexp.to_i
+  end
+)
+
+ParameterType(
+
+  regexp: /^[A-Z:]+::VERSION$/,
+  transformer: -> (regexp) do
+    eval regexp
+  end
+)
+

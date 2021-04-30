@@ -1,5 +1,0 @@
-zone: UTC
-
-sync:
-  host: localhost
-  method: ntp

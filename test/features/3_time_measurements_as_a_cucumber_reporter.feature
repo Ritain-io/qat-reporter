@@ -36,7 +36,7 @@ Feature: Feature #3 Time Measurements Report
             "timestamp": "2008-10-05T00:00:00+0000",
             "test_runs": [
               {
-                "id": "test_1_1_1223251200",
+                "id": "test_1_1223251200",
                 "test_status": "passed",
                 "timestamp": "2008-10-06T00:00:00+0000",
                 "measurements": [
@@ -55,9 +55,21 @@ Feature: Feature #3 Time Measurements Report
                     }
                   }
                 ]
-              },
+              }
+            ]
+          },
+          {
+            "name": "Take a time measurement",
+            "tags": [
+              "@label",
+              "@test#1",
+              "@user_story#2",
+              "@ola"
+            ],
+            "timestamp": "2008-10-06T00:00:02+0000",
+            "test_runs": [
               {
-                "id": "test_1_2_1223337602",
+                "id": "test_1_1223337602",
                 "test_status": "passed",
                 "timestamp": "2008-10-07T00:00:02+0000",
                 "measurements": [
@@ -83,10 +95,8 @@ Feature: Feature #3 Time Measurements Report
       },
       {
         "feature": "Time measure 2",
-        "tags": [
-
-        ],
-        "timestamp": "2008-10-09T00:00:11+0000",
+        "tags": null,
+        "timestamp": "2008-10-05T00:00:00+0000",
         "scenarios": [
           {
             "name": "Take a time measurement 2.1",
@@ -99,7 +109,7 @@ Feature: Feature #3 Time Measurements Report
             "timestamp": "2008-10-09T00:00:11+0000",
             "test_runs": [
               {
-                "id": "test_2_1_1223596811",
+                "id": "test_2_1223596811",
                 "test_status": "passed",
                 "timestamp": "2008-10-10T00:00:11+0000",
                 "measurements": [
@@ -118,9 +128,21 @@ Feature: Feature #3 Time Measurements Report
                     }
                   }
                 ]
-              },
+              }
+            ]
+          },
+          {
+            "name": "Take a time measurement 2.1",
+            "tags": [
+              "@label",
+              "@test#2",
+              "@user_story#3",
+              "@outline"
+            ],
+            "timestamp": "2008-10-10T00:00:18+0000",
+            "test_runs": [
               {
-                "id": "test_2_2_1223683218",
+                "id": "test_2_1223683218",
                 "test_status": "passed",
                 "timestamp": "2008-10-11T00:00:18+0000",
                 "measurements": [
@@ -223,6 +245,7 @@ Feature: Feature #3 Time Measurements Report
         ]
       }
     ]
+
     """
 
   @test#29

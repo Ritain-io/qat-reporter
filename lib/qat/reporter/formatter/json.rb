@@ -10,7 +10,7 @@ module QAT
       #@since 6.1.7
       class Json < ::Cucumber::Formatter::Json
         #@api private
-        def embed *_
+        def attach *_
         end
       end
     end
