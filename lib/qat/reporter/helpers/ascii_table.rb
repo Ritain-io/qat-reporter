@@ -1,10 +1,8 @@
 module QAT
   module Reporter
     # Namespace for custom Report output formatters
-    #@since 6.1.7
     module Helpers
       # Namespace for AsciiTable formatter
-      #@since 6.1.7
       class AsciiTable
 
         attr_reader :content

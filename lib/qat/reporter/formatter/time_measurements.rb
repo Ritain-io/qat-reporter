@@ -11,11 +11,9 @@ require_relative '../../reporter/times'
 
 module QAT
   # Namespace for custom Cucumber formatters and helpers.
-  #@since 0.1.0
   module Reporter
     module Formatter
       # Namespace for Time Measurements formatter
-      #@since 6.2.0
       class TimeMeasurements
         include ::Cucumber::Formatter::Io
         include ::Cucumber::Formatter::Duration

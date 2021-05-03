@@ -13,10 +13,8 @@ module QAT
   # Namespace for QAT Reporter
   module Reporter
     # Namespace for custom Cucumber formatters and helpers.
-    #@since 6.1.7
     module Formatter
       # Namespace for ReqCoverage formatter
-      #@since 6.1.7
       class ReqCoverage
         include ::Cucumber::Formatter::Io
         include ::Cucumber::Formatter::Duration

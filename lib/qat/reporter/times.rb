@@ -200,7 +200,6 @@ module QAT
         description = if QAT.configuration.dig(:qat, :reporter, :times, key).is_a?(Hash)
                         QAT.configuration.dig(:qat, :reporter, :times, key, :name)
                       else
-                        warn "[WARN] DEPRECATED: Measurements definition without limits will be removed in a 7.0 version, please use following configuration instead:\nmeasure_id:\n  name: Test measure\n  sla_warn: 10\n  sla_error: 15"
                         QAT.configuration.dig(:qat, :reporter, :times, key)
                       end
 
