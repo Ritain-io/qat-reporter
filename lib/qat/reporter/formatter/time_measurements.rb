@@ -41,17 +41,18 @@ module QAT
           @row_number = nil
           test_case   = event.test_case
           build(test_case, @ast_lookup)
-          @current_feature_timestamp = Time.now.strftime("%FT%T%z")
 
           if @current_feature_info.nil?
+            @current_feature_timestamp = Time.now.strftime("%FT%T%z")
             feature_body
           elsif @current_feature_info.values.include?(@feature_hash[:name])
           else
+            @current_feature_timestamp = Time.now.strftime("%FT%T%z")
             process_scenarios
             feature_body
           end
 
-          @current_scenario = @scenario
+          @current_scenario        = @scenario
           @current_scenario[:tags] = @current_scenario[:tags] - @feature_hash[:tags] if @feature_hash[:tags]
           scenario_body
         end
@@ -143,7 +144,7 @@ module QAT
 
 
         def feature_body
-          @current_feature_info      = {
+          @current_feature_info = {
             feature:   @feature_hash[:name],
             tags:      @feature_hash[:tags],
             timestamp: @current_feature_timestamp,
@@ -152,7 +153,7 @@ module QAT
         end
 
         def scenario_body
-          @current_scenario_info   = {
+          @current_scenario_info = {
             name:      @current_scenario[:name],
             tags:      @current_scenario[:tags],
             timestamp: Time.now.strftime("%FT%T%z"),
