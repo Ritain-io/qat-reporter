@@ -46,25 +46,21 @@ module QAT
           if @current_feature_info.nil?
             feature_body
           elsif @current_feature_info.values.include?(@feature_hash[:name])
-            ##Improve
           else
             process_scenarios
-
             feature_body
           end
 
-          @current_scenario        = @scenario
+          @current_scenario = @scenario
           @current_scenario[:tags] = @current_scenario[:tags] - @feature_hash[:tags] if @feature_hash[:tags]
-
+          scenario_body
         end
-
 
         def on_test_case_finished event
           return if @config.dry_run?
           _test_case, result = *event.attributes
           @current_feature   = nil
           @current_feature_info[:scenarios] << @current_scenario_info
-
 
           test_run_id = QAT[:current_test_run_id]
           measurements = QAT::Reporter::Times.get_measures rescue []
@@ -109,10 +105,9 @@ module QAT
 
         def on_test_run_finished event
           return if @config.dry_run?
-          print_scenario_results @feature_hash[:keyword], @feature_hash[:name]
           process_scenarios
           @io.puts(JSON.pretty_generate(@json_content))
-
+          log.error @json_content
         end
 
 
@@ -144,24 +139,24 @@ module QAT
           end
 
           @json_content << @current_feature_info unless @scenarios.empty?
-          log.error @json_content
         end
 
-        def scenario_body
-          @current_scenario_info = {
-            name:      @current_scenario[:name],
-            tags:      @current_scenario[:tags],
-            timestamp: Time.now.strftime("%FT%T%z"),
-            test_runs: []
-          }
-        end
 
         def feature_body
-          @current_feature_info = {
+          @current_feature_info      = {
             feature:   @feature_hash[:name],
             tags:      @feature_hash[:tags],
             timestamp: @current_feature_timestamp,
             scenarios: []
+          }
+        end
+
+        def scenario_body
+          @current_scenario_info   = {
+            name:      @current_scenario[:name],
+            tags:      @current_scenario[:tags],
+            timestamp: Time.now.strftime("%FT%T%z"),
+            test_runs: []
           }
         end
 
