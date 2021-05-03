@@ -41,7 +41,7 @@ Feature: Feature #602: Requirement Coverage Report:
           "test": 1,
           "requirement": \[
 
-          \],
+          \],a
           "status": "passed",
           "duration": \d+.\d+,
           "human_duration": "\d+m\d.\d{3}s"

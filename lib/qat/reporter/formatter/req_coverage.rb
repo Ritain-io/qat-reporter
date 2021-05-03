@@ -33,9 +33,7 @@ module QAT
           @feature_hashes = []
            config.on_event :test_case_started, &method(:on_test_case_started)
            config.on_event :test_case_finished, &method(:on_test_case_finished)
-          # config.on_event :test_step_started, &method(:on_test_step_started)
-          # config.on_event :test_step_finished, &method(:on_test_step_finished)
-          # config.on_event :test_run_finished, &method(:on_test_run_finished)
+           config.on_event :test_run_finished, &method(:on_test_run_finished)
           @test_results = []
           @feature_requirement_ids = []
           @test_requirement_ids = []
@@ -54,20 +52,21 @@ module QAT
         #@api private
         def on_test_case_started(event)
           return if @config.dry_run?
-          log.error "teste1"
           @row_number = nil
           @examples = nil
           test_case   = event.test_case
           build(test_case, @ast_lookup)
           assign_print_feature unless @current_feature
+          #if @examples_values
+            @test_id = nil
+            @test_requirement_ids = []
+
+
           @scenario[:tags].each do |tag|
             tag_name  tag
           end
 
-          unless @examples_values
-            @test_id = nil
-            @test_requirement_ids = []
-          end
+
         end
 
         def on_test_case_finished event
@@ -87,17 +86,18 @@ module QAT
                           "not_runned"
                         end
 
-          if @examples
+          if @examples_values
             if @flag_tag == @test_id
               @row_counter += 1
             else
               @row_counter = 1
             end
 
-            test_id = "#{@test_id}.#{@row_counter}".to_f
+           test_id = "#{@test_id}.#{@scenario[:id].split('').last}".to_f
+
           else
             @row_counter = 1
-            test_id = @test_id.to_i
+           test_id = @test_id.to_i
           end
 
           duration = ::Cucumber::Formatter::DurationExtractor.new(result).result_duration
@@ -105,7 +105,7 @@ module QAT
 
           test_result = {
             test: test_id,
-            requirement: (@feature_requirement_ids + @test_requirement_ids).uniq.compact,
+            requirement: @test_requirement_ids.uniq.compact,
             status: test_status,
             duration: duration,
             human_duration: human_duration
@@ -124,16 +124,16 @@ module QAT
                      })
           end
 
-          @test_requirement_ids = [] unless @examples
+          @test_requirement_ids = [] if @examples_values
           @flag_tag = @test_id if @flag_tag != @test_id
-
-
         end
 
 
         def on_test_run_finished event
           return if @config.dry_run?
           publish_result
+          @test_id = nil
+          @test_requirement_ids = []
         end
 
         private

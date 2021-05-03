@@ -16,13 +16,10 @@ Feature: Tagged feature
     When I do an action <action>
     Then I have a result <result>
 
-    Examples: example table of success test combinations
+    Examples: example table of test combinations
       | action  | result |
       | action1 | passed |
       | action2 | passed |
-
-    Examples: example table of failure test combinations
-      | action  | result |
       | action3 | failed |
       | action4 | failed |
 
@@ -32,13 +29,10 @@ Feature: Tagged feature
     When I do an action <action>
     Then I have a result <result>
 
-    Examples: example table of success test combinations
+    Examples: example table of test combinations
       | action  | result |
       | action1 | passed |
       | action2 | passed |
-
-    Examples: example table of failure test combinations
-      | action  | result |
       | action3 | failed |
       | action4 | failed |
 

@@ -31,22 +31,10 @@ module QAT
           @feature_hashes = []
           config.on_event :test_case_started, &method(:on_test_case_started)
           config.on_event :test_case_finished, &method(:on_test_case_finished)
-          # config.on_event :test_step_started, &method(:on_test_step_started)
-          # config.on_event :test_step_finished, &method(:on_test_step_finished)
-          # config.on_event :test_run_started, &method(:on_test_run_started)
           config.on_event :test_run_finished, &method(:on_test_run_finished)
           @json_content = []
-
-          # @current_scenario_info = {}
         end
 
-        # def on_test_run_started event
-        #   test_case   = event.test_cases
-        #   uri              = test_case.first.location.file
-        #   feature          = @ast_lookup.gherkin_document(uri).feature
-        #   feature(feature, uri)
-        #   log.warn @feature_hash
-        # end
 
         def on_test_case_started event
           return if @config.dry_run?
