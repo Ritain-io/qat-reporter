@@ -41,45 +41,21 @@ module QAT
           @row_number = nil
           test_case   = event.test_case
           build(test_case, @ast_lookup)
-          assign_print_feature unless @current_feature
+          @current_feature_timestamp = Time.now.strftime("%FT%T%z")
 
           if @current_feature_info.nil?
-            log.error "teste1"
-            @current_feature_timestamp = Time.now.strftime("%FT%T%z")
-            @current_feature_info      = {
-              feature:   @feature_hash[:name],
-              tags:      @feature_hash[:tags],
-              timestamp: @current_feature_timestamp,
-              scenarios: []
-            }
+            feature_body
           elsif @current_feature_info.values.include?(@feature_hash[:name])
-            log.error "teste2"
+            ##Improve
           else
-            log.error "teste3"
             process_scenarios
 
-            @current_feature_info      = {
-              feature:   @feature_hash[:name],
-              tags:      @feature_hash[:tags],
-              timestamp: @current_feature_timestamp,
-              scenarios: []
-            }
+            feature_body
           end
 
-
-
-          @current_scenario = @scenario
-          scenario_name     = @current_scenario[:name]
-          print_scenario_start @current_scenario[:keyword], scenario_name
-          mdc_before_scenario! scenario_name, @current_scenario[:tags], @row_number, @examples_values
-
+          @current_scenario        = @scenario
           @current_scenario[:tags] = @current_scenario[:tags] - @feature_hash[:tags] if @feature_hash[:tags]
-          @current_scenario_info   = {
-            name:      @current_scenario[:name],
-            tags:      @current_scenario[:tags],
-            timestamp: Time.now.strftime("%FT%T%z"),
-            test_runs: []
-          }
+
         end
 
 
@@ -135,9 +111,7 @@ module QAT
           return if @config.dry_run?
           print_scenario_results @feature_hash[:keyword], @feature_hash[:name]
           process_scenarios
-
           @io.puts(JSON.pretty_generate(@json_content))
-          log.error @json_content
 
         end
 
@@ -170,7 +144,25 @@ module QAT
           end
 
           @json_content << @current_feature_info unless @scenarios.empty?
-          log.error  @json_content
+          log.error @json_content
+        end
+
+        def scenario_body
+          @current_scenario_info = {
+            name:      @current_scenario[:name],
+            tags:      @current_scenario[:tags],
+            timestamp: Time.now.strftime("%FT%T%z"),
+            test_runs: []
+          }
+        end
+
+        def feature_body
+          @current_feature_info = {
+            feature:   @feature_hash[:name],
+            tags:      @feature_hash[:tags],
+            timestamp: @current_feature_timestamp,
+            scenarios: []
+          }
         end
 
       end

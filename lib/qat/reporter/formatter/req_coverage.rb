@@ -31,20 +31,20 @@ module QAT
           ensure_outputter 'ReqCoverage' unless @config.dry_run?
           @ast_lookup     = ::Cucumber::Formatter::AstLookup.new(config)
           @feature_hashes = []
-           config.on_event :test_case_started, &method(:on_test_case_started)
-           config.on_event :test_case_finished, &method(:on_test_case_finished)
-           config.on_event :test_run_finished, &method(:on_test_run_finished)
-          @test_results = []
+          config.on_event :test_case_started, &method(:on_test_case_started)
+          config.on_event :test_case_finished, &method(:on_test_case_finished)
+          config.on_event :test_run_finished, &method(:on_test_run_finished)
+          @test_results            = []
           @feature_requirement_ids = []
-          @test_requirement_ids = []
-          @row_counter = 0
-          @flag_tag = nil
+          @test_requirement_ids    = []
+          @row_counter             = 0
+          @flag_tag                = nil
         end
 
 
         #@api private
         def tag_name(tag_name)
-          @test_id = tag_name.to_s.split('#')[1] if tag_name.match(/@test#(\d+)/)
+          @test_id       = tag_name.to_s.split('#')[1] if tag_name.match(/@test#(\d+)/)
           requirement_id = tag_name.to_s.split('#')[1] if tag_name.match(/@user_story#(\d+)/)
           @test_requirement_ids << requirement_id
         end
@@ -53,17 +53,13 @@ module QAT
         def on_test_case_started(event)
           return if @config.dry_run?
           @row_number = nil
-          @examples = nil
+          @examples   = nil
           test_case   = event.test_case
           build(test_case, @ast_lookup)
-          assign_print_feature unless @current_feature
-          #if @examples_values
-            @test_id = nil
-            @test_requirement_ids = []
-
-
+          @test_id              = nil
+          @test_requirement_ids = []
           @scenario[:tags].each do |tag|
-            tag_name  tag
+            tag_name tag
           end
 
 
@@ -80,7 +76,7 @@ module QAT
                           else
                             "passed"
                           end
-                        elsif  result.failed?
+                        elsif result.failed?
                           "failed"
                         else
                           "not_runned"
@@ -92,22 +88,20 @@ module QAT
             else
               @row_counter = 1
             end
-
-           test_id = "#{@test_id}.#{@scenario[:id].split('').last}".to_f
-
+            test_id = "#{@test_id}.#{@scenario[:id].split('').last}".to_f
           else
             @row_counter = 1
-           test_id = @test_id.to_i
+            test_id      = @test_id.to_i
           end
 
-          duration = ::Cucumber::Formatter::DurationExtractor.new(result).result_duration
+          duration       = ::Cucumber::Formatter::DurationExtractor.new(result).result_duration
           human_duration = format_duration(duration)
 
           test_result = {
-            test: test_id,
-            requirement: @test_requirement_ids.uniq.compact,
-            status: test_status,
-            duration: duration,
+            test:           test_id,
+            requirement:    @test_requirement_ids.uniq.compact,
+            status:         test_status,
+            duration:       duration,
             human_duration: human_duration
           }
 
@@ -115,24 +109,24 @@ module QAT
             @test_results << test_result
 
             log.info({
-                       'message' => 'test execution',
-                       '_test' => test_result[:test],
-                       '_requirement' => test_result[:requirement],
-                       '_status' => test_result[:status],
-                       '_duration' => duration,
+                       'message'         => 'test execution',
+                       '_test'           => test_result[:test],
+                       '_requirement'    => test_result[:requirement],
+                       '_status'         => test_result[:status],
+                       '_duration'       => duration,
                        '_human_duration' => human_duration
                      })
           end
 
           @test_requirement_ids = [] if @examples_values
-          @flag_tag = @test_id if @flag_tag != @test_id
+          @flag_tag             = @test_id if @flag_tag != @test_id
         end
 
 
         def on_test_run_finished event
           return if @config.dry_run?
           publish_result
-          @test_id = nil
+          @test_id              = nil
           @test_requirement_ids = []
         end
 
