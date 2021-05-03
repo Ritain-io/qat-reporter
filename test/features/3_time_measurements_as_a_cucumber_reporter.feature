@@ -96,7 +96,7 @@ Feature: Feature #3 Time Measurements Report
       {
         "feature": "Time measure 2",
         "tags": null,
-        "timestamp": "2008-10-05T00:00:00+0000",
+        "timestamp": "2008-10-09T00:00:11+0000",
         "scenarios": [
           {
             "name": "Take a time measurement 2.1",
