@@ -36,7 +36,7 @@ Feature: Feature #12 Time Measurements should support multiples measurements
             "timestamp": "2008-10-05T00:00:00+0000",
             "test_runs": [
               {
-                "id": "test_1_1_1223251200",
+                "id": "test_1_1223251200",
                 "test_status": "passed with SLA Warning",
                 "timestamp": "2008-10-06T00:00:00+0000",
                 "measurements": [
@@ -69,9 +69,21 @@ Feature: Feature #12 Time Measurements should support multiples measurements
                     }
                   }
                 ]
-              },
+              }
+            ]
+          },
+          {
+            "name": "Take a time measurement",
+            "tags": [
+              "@label",
+              "@test#1",
+              "@user_story#2",
+              "@ola"
+            ],
+            "timestamp": "2008-10-06T00:00:15+0000",
+            "test_runs": [
               {
-                "id": "test_1_2_1223337615",
+                "id": "test_1_1223337615",
                 "test_status": "passed with SLA Error",
                 "timestamp": "2008-10-07T00:00:15+0000",
                 "measurements": [
@@ -110,4 +122,5 @@ Feature: Feature #12 Time Measurements should support multiples measurements
         ]
       }
     ]
+
     """

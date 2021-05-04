@@ -1,4 +1,3 @@
-warn "[WARN] DEPRECATED: QAT::Reporter::Times::Helpers will be removed in a 7.0 version, please use QAT::Reporter::Helpers::TimeFormat"
 require_relative '../helpers/time_format'
 
 module QAT

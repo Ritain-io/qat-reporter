@@ -73,7 +73,6 @@ Feature: User Story #21 - Test's interactions time report
     And the output should match /\|\sInteraction\s*\|\sStart\s*|\sEnd\s*\|\sDuration\|/
     And the output should match /\|\sThis is a test measure\s*|\s*\d{4}-\d{2}-\d{2}\s\d{2}:\d{2}:\d{2}+\d{4}\s*\|\s*\d{4}-\d{2}-\d{2}\s\d{2}:\d{2}:\d{2}+\d{4}\s*\|\s\d{2}m\s\d{2}s\s*\|/
 
-
   @test#17 @remote_logging
   Scenario: Time measure with extra information
     Given the measure extra information is defined as:
