@@ -108,7 +108,6 @@ module QAT
           return if @config.dry_run?
           process_scenarios
           @io.puts(JSON.pretty_generate(@json_content))
-          log.error @json_content
         end
 
 
